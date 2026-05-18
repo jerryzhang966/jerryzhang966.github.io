@@ -53,7 +53,7 @@
     "href": "index.html",
     "title": "Jinrui (Jerry) Zhang",
     "section": "",
-    "text": "Welcome to my data portfolio. I’m a graduate student in Business Analytics at UC Irvine with experience in machine learning, statistical modeling, and business intelligence. Browse my projects below.\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Welcome to my data portfolio. I’m a graduate student in Business Analytics at UC Irvine with experience in machine learning, statistical modeling, and business intelligence. Browse my projects below.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPredicting Bank Marketing Campaign Subscriptions\n\n\n\nmachine-learning\n\nclassification\n\npython\n\nimbalanced-data\n\n\n\nCompared Decision Tree and Logistic Regression classifiers on imbalanced UCI Bank Marketing data, addressed data leakage, applied SMOTE, and used GridSearchCV to identify high-probability customers for term deposit subscriptions.\n\n\n\n\n\nDec 1, 2025\n\n\nJinrui Zhang\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
