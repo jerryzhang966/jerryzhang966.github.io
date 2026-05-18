@@ -2,7 +2,7 @@
 title: "Jinrui (Jerry) Zhang"
 subtitle: "Data Analyst · Business Intelligence · Machine Learning"
 listing:
-  contents: posts
+  contents: uci-projects-portfolio
   sort: "date desc"
   type: default
   categories: true
