@@ -1,15 +1,21 @@
 ---
 title: "About Me"
-image: profile.jpg
 about:
   template: jolla
   links:
     - icon: linkedin
       text: LinkedIn
-      href: https://linkedin.com
+      href: https://www.linkedin.com/in/jinruizhang
     - icon: github
       text: GitHub
-      href: https://github.com
+      href: https://github.com/jerryzhang966
+    - icon: envelope
+      text: Email
+      href: mailto:jerryzhang966@gmail.com
 ---
 
-Replace this text with a short bio about yourself. What are you studying? What are you interested in? What do you want to work on?
+I'm Jinrui (Jerry) Zhang, a graduate student in Business Analytics at UC Irvine. I'm interested in turning data into actionable business insights through machine learning, statistical modeling, and data visualization.
+
+**Skills:** Python · R · SQL · scikit-learn · pandas · Tableau · Power BI
+
+**Interests:** Predictive modeling · Customer analytics · Business intelligence · A/B testing
