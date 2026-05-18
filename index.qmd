@@ -1,11 +1,13 @@
 ---
-title: "Welcome!"
+title: "Jinrui (Jerry) Zhang"
+subtitle: "Data Analyst · Business Intelligence · Machine Learning"
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  categories: true
+page-layout: full
+title-block-banner: true
 ---
 
-This is your portfolio site. Start by editing this page and `about.qmd` to make it your own.
-
-## Next Steps
-
-- Edit `about.qmd` with your info
-- Create a project post in `posts/`
-- Push to `main` and your site will auto-deploy
+Welcome to my data portfolio. I'm a graduate student in Business Analytics at UC Irvine with experience in machine learning, statistical modeling, and business intelligence. Browse my projects below.
