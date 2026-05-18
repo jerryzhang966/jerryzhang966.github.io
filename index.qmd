@@ -8,6 +8,7 @@ listing:
 page-layout: full
 ---
 
+```{=html}
 <section class="hero">
   <div class="hero-profile">
     <div class="avatar-wrapper">
@@ -28,5 +29,8 @@ page-layout: full
     <div class="petal p5"></div>
   </div>
 </section>
+```
 
-<p class="project-cta">Browse my projects below &mdash; <strong>click any card to read the full case study</strong></p>
+::: {.project-cta}
+Browse my projects below &mdash; **click any card to read the full case study**
+:::
