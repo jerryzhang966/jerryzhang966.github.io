@@ -7,10 +7,59 @@
     "text": "I’m Jinrui (Jerry) Zhang, a graduate student in Business Analytics at UC Irvine. I’m interested in turning data into actionable business insights through machine learning, statistical modeling, and data visualization.\nSkills: Python · R · SQL · scikit-learn · pandas · Tableau · Power BI\nInterests: Predictive modeling · Customer analytics · Business intelligence · A/B testing"
   },
   {
+    "objectID": "posts/bank-marketing-ml/index.html",
+    "href": "posts/bank-marketing-ml/index.html",
+    "title": "Predicting Bank Marketing Campaign Subscriptions",
+    "section": "",
+    "text": "A Portuguese bank ran telemarketing campaigns from 2008–2010, calling customers to promote term deposit subscriptions. Only ~11% of customers said yes — the vast majority declined. The business problem: how do you predict before picking up the phone which customers are actually worth calling?\nWasted calls mean wasted time, labor, and budget. A good model translates directly into campaign ROI."
+  },
+  {
+    "objectID": "posts/bank-marketing-ml/index.html#problem",
+    "href": "posts/bank-marketing-ml/index.html#problem",
+    "title": "Predicting Bank Marketing Campaign Subscriptions",
+    "section": "",
+    "text": "A Portuguese bank ran telemarketing campaigns from 2008–2010, calling customers to promote term deposit subscriptions. Only ~11% of customers said yes — the vast majority declined. The business problem: how do you predict before picking up the phone which customers are actually worth calling?\nWasted calls mean wasted time, labor, and budget. A good model translates directly into campaign ROI."
+  },
+  {
+    "objectID": "posts/bank-marketing-ml/index.html#data",
+    "href": "posts/bank-marketing-ml/index.html#data",
+    "title": "Predicting Bank Marketing Campaign Subscriptions",
+    "section": "Data",
+    "text": "Data\n\nSource: UCI Bank Marketing Dataset — Portuguese bank, 41,188 records, May 2008–November 2010\nSize after preprocessing: 43,193 rows × 13 features\nTarget: y — did the customer subscribe to a term deposit? (binary; ~11% positive — severe class imbalance)\n\n\n\n\n\n\n\n\nFeature Group\nVariables\n\n\n\n\nDemographics\nage, job (employed/retired/unemployed), marital status, education level\n\n\nFinancial\navg. bank balance, housing loan, personal loan, credit default\n\n\nCampaign\ncall duration, # contacts this campaign, days since last contact, # previous contacts"
+  },
+  {
+    "objectID": "posts/bank-marketing-ml/index.html#approach",
+    "href": "posts/bank-marketing-ml/index.html#approach",
+    "title": "Predicting Bank Marketing Campaign Subscriptions",
+    "section": "Approach",
+    "text": "Approach\nTools: Python · scikit-learn · imbalanced-learn · pandas · matplotlib · seaborn (Google Colab)\n\nPreprocessing\n\nRemoved rows with “unknown” entries in job, marital, education\nSimplified 12 job categories → 3: employed / retired / unemployed\nDropped low-signal columns: contact type, day, month, previous outcome\nOne-hot encoded categorical variables; converted yes/no → 1/0\nRemoved duration (call length only known after the call — a leakage feature)\n\n\n\nModels\n\nDecision Tree Classifier — captures non-linear relationships, produces interpretable splits\nLogistic Regression — linear baseline with interpretable coefficients\n\n\n\nExperiments\nEach model was evaluated across four pipeline stages:\n\n\n\n\n\n\n\nStage\nDescription\n\n\n\n\nBenchmark 1\nNumerical features only, minimal preprocessing\n\n\nBenchmark 2\nFull cleaning: binning, encoding, column removal\n\n\nSMOTE\nSynthetic oversampling to balance the 11/89 class split\n\n\nSMOTE + GridSearchCV\nHyperparameter tuning to maximize Class 1 recall\n\n\n\nPrimary metric: F1-score (appropriate for imbalanced binary classification). All models evaluated with 10-fold cross-validation."
+  },
+  {
+    "objectID": "posts/bank-marketing-ml/index.html#findings",
+    "href": "posts/bank-marketing-ml/index.html#findings",
+    "title": "Predicting Bank Marketing Campaign Subscriptions",
+    "section": "Findings",
+    "text": "Findings\n\nModel Comparison (Test F1 Score)\n\n\n\n\n\n\n\n\n\nModel\nCV F1\nTest F1\nNotes\n\n\n\n\nUntuned Decision Tree\n0.392\n0.403\nBaseline\n\n\nUntuned Logistic Regression\n0.307\n0.316\nBaseline\n\n\nDecision Tree (no duration)\n0.242\n0.244\nRealistic pre-call scenario\n\n\nLogistic Regression (no duration)\n0.018\n0.023\nCollapsed without leakage\n\n\nDecision Tree + SMOTE\n0.837\n0.228\nSevere overfitting\n\n\nLogistic Regression + SMOTE\n0.785\n0.244\nModerate gain\n\n\nTuned Decision Tree\n0.471\n0.470\nBest generalization\n\n\nTuned Logistic Regression\n0.350\n0.330\nModest improvement\n\n\n\n\n\nKey Takeaways\nData leakage was the biggest trap. duration (call length) was the strongest predictor across all models — but it is only known after the call ends, making it useless for pre-call targeting. Removing it cut F1 from ~0.40 to ~0.24, revealing the true predictive ceiling of the remaining features.\nSMOTE overfit badly. Synthetic oversampling pushed cross-validation F1 to 0.84 but collapsed on the test set (0.23). Synthetic minority samples did not generalize to real customer behavior — a cautionary result about evaluating CV scores on SMOTE-resampled training data.\nDecision Tree consistently outperformed Logistic Regression on F1 metrics. Non-linear decision boundaries matter here; subscription behavior does not separate cleanly on a hyperplane.\nBest model: Tuned Decision Tree (max_depth=5, class_weight='balanced', min_samples_split=10) — Test F1 of 0.47, with precision 0.33 and recall 0.81. High recall means most real subscribers are captured; lower precision means some non-subscribers are contacted, which is the acceptable trade-off in a marketing context.\n\n\nTop Predictors (after removing duration)\n\nCampaign contact frequency (more contacts → lower subscription probability)\nHousing loan status\nPrevious campaign outcomes\nJob type (retired and unemployed had higher subscription rates)\nEducation level (tertiary education correlated with higher subscription)"
+  },
+  {
+    "objectID": "posts/bank-marketing-ml/index.html#business-recommendations",
+    "href": "posts/bank-marketing-ml/index.html#business-recommendations",
+    "title": "Predicting Bank Marketing Campaign Subscriptions",
+    "section": "Business Recommendations",
+    "text": "Business Recommendations\n\nCap contacts at 1–2 per customer. Repeated calling reliably reduces subscription probability. Stop after two attempts.\nPrioritize high-signal segments: retired customers, higher education, no personal loans, positive prior campaign history.\nTailor messaging by segment: retired customers respond to security and stability; highly-educated customers respond to long-term growth projections.\nIntegrate the tuned Decision Tree as a lead scorer. The interpretable split rules can be embedded directly in a campaign management workflow to rank leads before dialing."
+  },
+  {
+    "objectID": "posts/bank-marketing-ml/index.html#reflections",
+    "href": "posts/bank-marketing-ml/index.html#reflections",
+    "title": "Predicting Bank Marketing Campaign Subscriptions",
+    "section": "Reflections",
+    "text": "Reflections\nThe leakage discovery was the most important moment of this project. A model with duration looks strong (F1 ~0.40 baseline); without it, the real ceiling becomes clear and the work becomes honest. In a real deployment, this distinction determines whether the model is actually useful.\nSMOTE served as a useful negative experiment. The proper approach is to apply SMOTE inside cross-validation folds using a Pipeline, not before splitting — that architectural mistake explained the wide CV/test divergence.\nWhat I would do differently:\n\nUse imblearn.pipeline.Pipeline to apply SMOTE inside CV folds properly\nTest ensemble methods — Random Forest and XGBoost handle class imbalance more robustly than a single Decision Tree\nUse precision-recall curves instead of a fixed 0.5 threshold, letting business requirements set the operating point\n\n\nDataset: UCI Bank Marketing\nCode: Google Colab Notebook"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Jinrui (Jerry) Zhang",
     "section": "",
-    "text": "Welcome to my data portfolio. I’m a graduate student in Business Analytics at UC Irvine with experience in machine learning, statistical modeling, and business intelligence. Browse my projects below.\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Welcome to my data portfolio. I’m a graduate student in Business Analytics at UC Irvine with experience in machine learning, statistical modeling, and business intelligence. Browse my projects below.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPredicting Bank Marketing Campaign Subscriptions\n\n\n\nmachine-learning\n\nclassification\n\npython\n\nimbalanced-data\n\n\n\nCompared Decision Tree and Logistic Regression classifiers on imbalanced UCI Bank Marketing data, addressed data leakage, applied SMOTE, and used GridSearchCV to identify high-probability customers for term deposit subscriptions.\n\n\n\n\n\nDec 1, 2025\n\n\nJinrui Zhang\n\n\n\n\n\nNo matching items"
   }
 ]

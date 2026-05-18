@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Jinrui Zhang">
+<meta name="dcterms.date" content="2025-12-01">
+<meta name="description" content="Compared Decision Tree and Logistic Regression classifiers on imbalanced UCI Bank Marketing data, addressed data leakage, applied SMOTE, and used GridSearchCV to identify high-probability customers for term deposit subscriptions.">
 
-<title>Jinrui (Jerry) Zhang – Jinrui Zhang | Data Portfolio</title>
+<title>Predicting Bank Marketing Campaign Subscriptions – Jinrui Zhang | Data Portfolio</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,25 +29,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3e7735b7b22659e5fa437aca0bb49075.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-3e7735b7b22659e5fa437aca0bb49075.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -72,77 +73,19 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Jinrui Zhang | Data Portfolio</span>
     </a>
   </div>
@@ -153,11 +96,11 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -168,82 +111,289 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Jinrui (Jerry) Zhang</h1>
-            <p class="subtitle lead">Data Analyst · Business Intelligence · Machine Learning</p>
-                      </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta column-page-left">
-
-      
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Y2xhc3NpZmljYXRpb24=">classification <span class="quarto-category-count">(1)</span></div><div class="category" data-category="aW1iYWxhbmNlZC1kYXRh">imbalanced-data <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bWFjaGluZS1sZWFybmluZw==">machine-learning <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cHl0aG9u">python <span class="quarto-category-count">(1)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#problem" id="toc-problem" class="nav-link active" data-scroll-target="#problem">Problem</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#approach" id="toc-approach" class="nav-link" data-scroll-target="#approach">Approach</a>
+  <ul class="collapse">
+  <li><a href="#preprocessing" id="toc-preprocessing" class="nav-link" data-scroll-target="#preprocessing">Preprocessing</a></li>
+  <li><a href="#models" id="toc-models" class="nav-link" data-scroll-target="#models">Models</a></li>
+  <li><a href="#experiments" id="toc-experiments" class="nav-link" data-scroll-target="#experiments">Experiments</a></li>
+  </ul></li>
+  <li><a href="#findings" id="toc-findings" class="nav-link" data-scroll-target="#findings">Findings</a>
+  <ul class="collapse">
+  <li><a href="#model-comparison-test-f1-score" id="toc-model-comparison-test-f1-score" class="nav-link" data-scroll-target="#model-comparison-test-f1-score">Model Comparison (Test F1 Score)</a></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
+  <li><a href="#top-predictors-after-removing-duration" id="toc-top-predictors-after-removing-duration" class="nav-link" data-scroll-target="#top-predictors-after-removing-duration">Top Predictors (after removing <code>duration</code>)</a></li>
+  </ul></li>
+  <li><a href="#business-recommendations" id="toc-business-recommendations" class="nav-link" data-scroll-target="#business-recommendations">Business Recommendations</a></li>
+  <li><a href="#reflections" id="toc-reflections" class="nav-link" data-scroll-target="#reflections">Reflections</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Predicting Bank Marketing Campaign Subscriptions</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">machine-learning</div>
+    <div class="quarto-category">classification</div>
+    <div class="quarto-category">python</div>
+    <div class="quarto-category">imbalanced-data</div>
+  </div>
+  </div>
 
-
-
-
-<p>Welcome to my data portfolio. I’m a graduate student in Business Analytics at UC Irvine with experience in machine learning, statistical modeling, and business intelligence. Browse my projects below.</p>
-
-
-
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="bWFjaGluZS1sZWFybmluZyUyQ2NsYXNzaWZpY2F0aW9uJTJDcHl0aG9uJTJDaW1iYWxhbmNlZC1kYXRh" data-listing-date-sort="1764547200000" data-listing-file-modified-sort="1779145166296" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="797">
-<div class="thumbnail"><a href="./posts/bank-marketing-ml/index.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/bank-marketing-ml/index.html" class="no-external">Predicting Bank Marketing Campaign Subscriptions</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('bWFjaGluZS1sZWFybmluZw=='); return false;">machine-learning</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y2xhc3NpZmljYXRpb24='); return false;">classification</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('aW1iYWxhbmNlZC1kYXRh'); return false;">imbalanced-data</div>
-
+<div>
+  <div class="description">
+    Compared Decision Tree and Logistic Regression classifiers on imbalanced UCI Bank Marketing data, addressed data leakage, applied SMOTE, and used GridSearchCV to identify high-probability customers for term deposit subscriptions.
+  </div>
 </div>
-<div class="delink listing-description"><a href="./posts/bank-marketing-ml/index.html" class="no-external">
-<p>Compared Decision Tree and Logistic Regression classifiers on imbalanced UCI Bank Marketing data, addressed data leakage, applied SMOTE, and used GridSearchCV to identify high-probability customers for term deposit subscriptions.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/bank-marketing-ml/index.html" class="no-external">
-<div class="listing-date">
-Dec 1, 2025
-</div>
-<div class="listing-author">
-Jinrui Zhang
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jinrui Zhang </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 1, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="problem" class="level2">
+<h2 class="anchored" data-anchor-id="problem">Problem</h2>
+<p>A Portuguese bank ran telemarketing campaigns from 2008–2010, calling customers to promote term deposit subscriptions. Only <strong>~11% of customers</strong> said yes — the vast majority declined. The business problem: how do you predict <em>before</em> picking up the phone which customers are actually worth calling?</p>
+<p>Wasted calls mean wasted time, labor, and budget. A good model translates directly into campaign ROI.</p>
+</section>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<ul>
+<li><strong>Source:</strong> UCI Bank Marketing Dataset — Portuguese bank, 41,188 records, May 2008–November 2010</li>
+<li><strong>Size after preprocessing:</strong> 43,193 rows × 13 features</li>
+<li><strong>Target:</strong> <code>y</code> — did the customer subscribe to a term deposit? (binary; ~11% positive — severe class imbalance)</li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature Group</th>
+<th>Variables</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Demographics</td>
+<td>age, job (employed/retired/unemployed), marital status, education level</td>
+</tr>
+<tr class="even">
+<td>Financial</td>
+<td>avg. bank balance, housing loan, personal loan, credit default</td>
+</tr>
+<tr class="odd">
+<td>Campaign</td>
+<td>call duration, # contacts this campaign, days since last contact, # previous contacts</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="approach" class="level2">
+<h2 class="anchored" data-anchor-id="approach">Approach</h2>
+<p><strong>Tools:</strong> Python · scikit-learn · imbalanced-learn · pandas · matplotlib · seaborn (Google Colab)</p>
+<section id="preprocessing" class="level3">
+<h3 class="anchored" data-anchor-id="preprocessing">Preprocessing</h3>
+<ul>
+<li>Removed rows with “unknown” entries in job, marital, education</li>
+<li>Simplified 12 job categories → 3: employed / retired / unemployed</li>
+<li>Dropped low-signal columns: contact type, day, month, previous outcome</li>
+<li>One-hot encoded categorical variables; converted yes/no → 1/0</li>
+<li>Removed <code>duration</code> (call length only known <em>after</em> the call — a leakage feature)</li>
+</ul>
+</section>
+<section id="models" class="level3">
+<h3 class="anchored" data-anchor-id="models">Models</h3>
+<ul>
+<li><strong>Decision Tree Classifier</strong> — captures non-linear relationships, produces interpretable splits</li>
+<li><strong>Logistic Regression</strong> — linear baseline with interpretable coefficients</li>
+</ul>
+</section>
+<section id="experiments" class="level3">
+<h3 class="anchored" data-anchor-id="experiments">Experiments</h3>
+<p>Each model was evaluated across four pipeline stages:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Stage</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Benchmark 1</td>
+<td>Numerical features only, minimal preprocessing</td>
+</tr>
+<tr class="even">
+<td>Benchmark 2</td>
+<td>Full cleaning: binning, encoding, column removal</td>
+</tr>
+<tr class="odd">
+<td>SMOTE</td>
+<td>Synthetic oversampling to balance the 11/89 class split</td>
+</tr>
+<tr class="even">
+<td>SMOTE + GridSearchCV</td>
+<td>Hyperparameter tuning to maximize Class 1 recall</td>
+</tr>
+</tbody>
+</table>
+<p>Primary metric: <strong>F1-score</strong> (appropriate for imbalanced binary classification). All models evaluated with <strong>10-fold cross-validation</strong>.</p>
+</section>
+</section>
+<section id="findings" class="level2">
+<h2 class="anchored" data-anchor-id="findings">Findings</h2>
+<section id="model-comparison-test-f1-score" class="level3">
+<h3 class="anchored" data-anchor-id="model-comparison-test-f1-score">Model Comparison (Test F1 Score)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>CV F1</th>
+<th>Test F1</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Untuned Decision Tree</td>
+<td>0.392</td>
+<td>0.403</td>
+<td>Baseline</td>
+</tr>
+<tr class="even">
+<td>Untuned Logistic Regression</td>
+<td>0.307</td>
+<td>0.316</td>
+<td>Baseline</td>
+</tr>
+<tr class="odd">
+<td>Decision Tree (no <code>duration</code>)</td>
+<td>0.242</td>
+<td>0.244</td>
+<td>Realistic pre-call scenario</td>
+</tr>
+<tr class="even">
+<td>Logistic Regression (no <code>duration</code>)</td>
+<td>0.018</td>
+<td>0.023</td>
+<td>Collapsed without leakage</td>
+</tr>
+<tr class="odd">
+<td>Decision Tree + SMOTE</td>
+<td>0.837</td>
+<td>0.228</td>
+<td>Severe overfitting</td>
+</tr>
+<tr class="even">
+<td>Logistic Regression + SMOTE</td>
+<td>0.785</td>
+<td>0.244</td>
+<td>Moderate gain</td>
+</tr>
+<tr class="odd">
+<td><strong>Tuned Decision Tree</strong></td>
+<td><strong>0.471</strong></td>
+<td><strong>0.470</strong></td>
+<td><strong>Best generalization</strong></td>
+</tr>
+<tr class="even">
+<td>Tuned Logistic Regression</td>
+<td>0.350</td>
+<td>0.330</td>
+<td>Modest improvement</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="key-takeaways" class="level3">
+<h3 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h3>
+<p><strong>Data leakage was the biggest trap.</strong> <code>duration</code> (call length) was the strongest predictor across all models — but it is only known <em>after</em> the call ends, making it useless for pre-call targeting. Removing it cut F1 from ~0.40 to ~0.24, revealing the true predictive ceiling of the remaining features.</p>
+<p><strong>SMOTE overfit badly.</strong> Synthetic oversampling pushed cross-validation F1 to 0.84 but collapsed on the test set (0.23). Synthetic minority samples did not generalize to real customer behavior — a cautionary result about evaluating CV scores on SMOTE-resampled training data.</p>
+<p><strong>Decision Tree consistently outperformed Logistic Regression</strong> on F1 metrics. Non-linear decision boundaries matter here; subscription behavior does not separate cleanly on a hyperplane.</p>
+<p><strong>Best model:</strong> Tuned Decision Tree (<code>max_depth=5</code>, <code>class_weight='balanced'</code>, <code>min_samples_split=10</code>) — Test F1 of <strong>0.47</strong>, with precision 0.33 and recall 0.81. High recall means most real subscribers are captured; lower precision means some non-subscribers are contacted, which is the acceptable trade-off in a marketing context.</p>
+</section>
+<section id="top-predictors-after-removing-duration" class="level3">
+<h3 class="anchored" data-anchor-id="top-predictors-after-removing-duration">Top Predictors (after removing <code>duration</code>)</h3>
+<ol type="1">
+<li>Campaign contact frequency (more contacts → lower subscription probability)</li>
+<li>Housing loan status</li>
+<li>Previous campaign outcomes</li>
+<li>Job type (retired and unemployed had higher subscription rates)</li>
+<li>Education level (tertiary education correlated with higher subscription)</li>
+</ol>
+</section>
+</section>
+<section id="business-recommendations" class="level2">
+<h2 class="anchored" data-anchor-id="business-recommendations">Business Recommendations</h2>
+<ol type="1">
+<li><strong>Cap contacts at 1–2 per customer.</strong> Repeated calling reliably reduces subscription probability. Stop after two attempts.</li>
+<li><strong>Prioritize high-signal segments:</strong> retired customers, higher education, no personal loans, positive prior campaign history.</li>
+<li><strong>Tailor messaging by segment:</strong> retired customers respond to security and stability; highly-educated customers respond to long-term growth projections.</li>
+<li><strong>Integrate the tuned Decision Tree as a lead scorer.</strong> The interpretable split rules can be embedded directly in a campaign management workflow to rank leads before dialing.</li>
+</ol>
+</section>
+<section id="reflections" class="level2">
+<h2 class="anchored" data-anchor-id="reflections">Reflections</h2>
+<p>The leakage discovery was the most important moment of this project. A model with <code>duration</code> looks strong (F1 ~0.40 baseline); without it, the real ceiling becomes clear and the work becomes honest. In a real deployment, this distinction determines whether the model is actually useful.</p>
+<p>SMOTE served as a useful negative experiment. The proper approach is to apply SMOTE <em>inside</em> cross-validation folds using a <code>Pipeline</code>, not before splitting — that architectural mistake explained the wide CV/test divergence.</p>
+<p><strong>What I would do differently:</strong></p>
+<ul>
+<li>Use <code>imblearn.pipeline.Pipeline</code> to apply SMOTE inside CV folds properly</li>
+<li>Test ensemble methods — Random Forest and XGBoost handle class imbalance more robustly than a single Decision Tree</li>
+<li>Use precision-recall curves instead of a fixed 0.5 threshold, letting business requirements set the operating point</li>
+</ul>
+<hr>
+<p><strong>Dataset:</strong> <a href="https://archive.ics.uci.edu/dataset/222/bank+marketing">UCI Bank Marketing</a><br>
+<strong>Code:</strong> <a href="https://colab.research.google.com/drive/1hDadJ2S8Y25r5SaDhaTGS7qVz6vLzW3f?usp=sharing">Google Colab Notebook</a></p>
+
+
+</section>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
