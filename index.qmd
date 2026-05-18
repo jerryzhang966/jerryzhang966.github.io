@@ -1,13 +1,32 @@
 ---
-title: "Jinrui (Jerry) Zhang"
-subtitle: "Data Analyst · Business Intelligence · Machine Learning"
+title: " "
 listing:
   contents: uci-projects-portfolio
   sort: "date desc"
-  type: default
+  type: grid
   categories: true
 page-layout: full
-title-block-banner: true
 ---
 
-Welcome to my data portfolio. I'm a graduate student in Business Analytics at UC Irvine with experience in machine learning, statistical modeling, and business intelligence. Browse my projects below.
+<section class="hero">
+  <div class="hero-profile">
+    <div class="avatar-wrapper">
+      <img src="profile.jpg" class="avatar-photo" alt="Jinrui Zhang">
+    </div>
+    <h2 class="hero-name">Jinrui (Jerry) Zhang</h2>
+    <p class="hero-subtitle">Data Analyst &middot; Business Intelligence &middot; Machine Learning</p>
+    <div class="hero-links">
+      <a href="https://www.linkedin.com/in/jinruizhang" target="_blank">LinkedIn</a>
+      <a href="https://github.com/jerryzhang966" target="_blank">GitHub</a>
+    </div>
+  </div>
+  <div class="hero-deco">
+    <div class="petal p1"></div>
+    <div class="petal p2"></div>
+    <div class="petal p3"></div>
+    <div class="petal p4"></div>
+    <div class="petal p5"></div>
+  </div>
+</section>
+
+<p class="project-cta">Browse my projects below &mdash; <strong>click any card to read the full case study</strong></p>
