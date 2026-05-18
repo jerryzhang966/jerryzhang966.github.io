@@ -1,1 +1,163 @@
-/* Custom styles — add your own here */
+/* ---- Hide Quarto auto title ---- */
+#title-block-header { display: none !important; }
+
+/* ---- Hero section ---- */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 3rem 2rem 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hero-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  text-align: center;
+}
+
+.avatar-wrapper {
+  width: 160px;
+  height: 160px;
+  overflow: hidden;
+}
+
+.avatar-photo {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  object-position: top center;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  display: block;
+}
+
+.hero-name {
+  font-size: 1.55rem;
+  font-weight: 700;
+  margin: 0;
+  color: #1a1a2e;
+}
+
+.hero-subtitle {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.hero-links {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.4rem;
+}
+
+.hero-links a {
+  padding: 0.32rem 1rem;
+  border-radius: 20px;
+  background: #3b82f6;
+  color: white !important;
+  text-decoration: none !important;
+  font-size: 0.82rem;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.hero-links a:hover { background: #1d4ed8; }
+
+/* ---- Floral decoration ---- */
+.hero-deco {
+  position: relative;
+  width: 210px;
+  height: 210px;
+  flex-shrink: 0;
+}
+
+.petal {
+  position: absolute;
+  opacity: 0.8;
+}
+
+.petal.p1 {
+  width: 95px; height: 95px;
+  background: radial-gradient(circle at 35% 35%, #fda4af, #e11d48);
+  top: 8px; left: 58px;
+  border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+}
+
+.petal.p2 {
+  width: 85px; height: 85px;
+  background: radial-gradient(circle at 35% 35%, #c4b5fd, #7c3aed);
+  top: 92px; left: 8px;
+  border-radius: 40% 60% 30% 70% / 60% 40% 60% 40%;
+}
+
+.petal.p3 {
+  width: 80px; height: 80px;
+  background: radial-gradient(circle at 35% 35%, #6ee7b7, #059669);
+  top: 92px; left: 122px;
+  border-radius: 70% 30% 50% 50% / 40% 60% 40% 60%;
+}
+
+.petal.p4 {
+  width: 68px; height: 68px;
+  background: radial-gradient(circle at 35% 35%, #fde68a, #d97706);
+  top: 155px; left: 65px;
+  border-radius: 50% 50% 60% 40% / 30% 70% 50% 50%;
+}
+
+.petal.p5 {
+  width: 52px; height: 52px;
+  background: radial-gradient(circle at 35% 35%, #fbcfe8, #db2777);
+  top: 18px; left: 148px;
+  border-radius: 30% 70% 40% 60% / 60% 40% 70% 30%;
+}
+
+/* Centre dot */
+.hero-deco::after {
+  content: '';
+  position: absolute;
+  width: 28px; height: 28px;
+  background: #fef9c3;
+  border-radius: 50%;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 12px 4px rgba(253,230,138,0.6);
+}
+
+/* ---- CTA text ---- */
+.project-cta {
+  text-align: center;
+  font-size: 1rem;
+  color: #555;
+  margin: 0.5rem auto 1.8rem;
+  max-width: 650px;
+}
+
+/* ---- Grid cards ---- */
+.quarto-grid-item {
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  border-radius: 10px !important;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.quarto-grid-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 35px rgba(0,0,0,0.13) !important;
+}
+
+.quarto-grid-item .card-title a::after {
+  content: " →";
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 640px) {
+  .hero { flex-direction: column; align-items: center; padding: 2rem 1rem 1rem; }
+  .hero-deco { width: 160px; height: 160px; }
+}
