@@ -1,0 +1,113 @@
+---
+title: "Predicting Bank Marketing Campaign Subscriptions"
+description: "Compared Decision Tree and Logistic Regression classifiers on imbalanced UCI Bank Marketing data, addressed data leakage, applied SMOTE, and used GridSearchCV to identify high-probability customers for term deposit subscriptions."
+author: "Jinrui Zhang"
+date: "2025-12-01"
+categories: [machine-learning, classification, python, imbalanced-data]
+---
+
+## Problem
+
+A Portuguese bank ran telemarketing campaigns from 2008–2010, calling customers to promote term deposit subscriptions. Only **~11% of customers** said yes — the vast majority declined. The business problem: how do you predict *before* picking up the phone which customers are actually worth calling?
+
+Wasted calls mean wasted time, labor, and budget. A good model translates directly into campaign ROI.
+
+## Data
+
+- **Source:** UCI Bank Marketing Dataset — Portuguese bank, 41,188 records, May 2008–November 2010
+- **Size after preprocessing:** 43,193 rows × 13 features
+- **Target:** `y` — did the customer subscribe to a term deposit? (binary; ~11% positive — severe class imbalance)
+
+| Feature Group | Variables |
+|---|---|
+| Demographics | age, job (employed/retired/unemployed), marital status, education level |
+| Financial | avg. bank balance, housing loan, personal loan, credit default |
+| Campaign | call duration, # contacts this campaign, days since last contact, # previous contacts |
+
+## Approach
+
+**Tools:** Python · scikit-learn · imbalanced-learn · pandas · matplotlib · seaborn (Google Colab)
+
+### Preprocessing
+
+- Removed rows with "unknown" entries in job, marital, education
+- Simplified 12 job categories → 3: employed / retired / unemployed
+- Dropped low-signal columns: contact type, day, month, previous outcome
+- One-hot encoded categorical variables; converted yes/no → 1/0
+- Removed `duration` (call length only known *after* the call — a leakage feature)
+
+### Models
+
+- **Decision Tree Classifier** — captures non-linear relationships, produces interpretable splits
+- **Logistic Regression** — linear baseline with interpretable coefficients
+
+### Experiments
+
+Each model was evaluated across four pipeline stages:
+
+| Stage | Description |
+|---|---|
+| Benchmark 1 | Numerical features only, minimal preprocessing |
+| Benchmark 2 | Full cleaning: binning, encoding, column removal |
+| SMOTE | Synthetic oversampling to balance the 11/89 class split |
+| SMOTE + GridSearchCV | Hyperparameter tuning to maximize Class 1 recall |
+
+Primary metric: **F1-score** (appropriate for imbalanced binary classification).
+All models evaluated with **10-fold cross-validation**.
+
+## Findings
+
+### Model Comparison (Test F1 Score)
+
+| Model | CV F1 | Test F1 | Notes |
+|---|---|---|---|
+| Untuned Decision Tree | 0.392 | 0.403 | Baseline |
+| Untuned Logistic Regression | 0.307 | 0.316 | Baseline |
+| Decision Tree (no `duration`) | 0.242 | 0.244 | Realistic pre-call scenario |
+| Logistic Regression (no `duration`) | 0.018 | 0.023 | Collapsed without leakage |
+| Decision Tree + SMOTE | 0.837 | 0.228 | Severe overfitting |
+| Logistic Regression + SMOTE | 0.785 | 0.244 | Moderate gain |
+| **Tuned Decision Tree** | **0.471** | **0.470** | **Best generalization** |
+| Tuned Logistic Regression | 0.350 | 0.330 | Modest improvement |
+
+### Key Takeaways
+
+**Data leakage was the biggest trap.** `duration` (call length) was the strongest predictor across all models — but it is only known *after* the call ends, making it useless for pre-call targeting. Removing it cut F1 from ~0.40 to ~0.24, revealing the true predictive ceiling of the remaining features.
+
+**SMOTE overfit badly.** Synthetic oversampling pushed cross-validation F1 to 0.84 but collapsed on the test set (0.23). Synthetic minority samples did not generalize to real customer behavior — a cautionary result about evaluating CV scores on SMOTE-resampled training data.
+
+**Decision Tree consistently outperformed Logistic Regression** on F1 metrics. Non-linear decision boundaries matter here; subscription behavior does not separate cleanly on a hyperplane.
+
+**Best model:** Tuned Decision Tree (`max_depth=5`, `class_weight='balanced'`, `min_samples_split=10`) — Test F1 of **0.47**, with precision 0.33 and recall 0.81. High recall means most real subscribers are captured; lower precision means some non-subscribers are contacted, which is the acceptable trade-off in a marketing context.
+
+### Top Predictors (after removing `duration`)
+
+1. Campaign contact frequency (more contacts → lower subscription probability)
+2. Housing loan status
+3. Previous campaign outcomes
+4. Job type (retired and unemployed had higher subscription rates)
+5. Education level (tertiary education correlated with higher subscription)
+
+## Business Recommendations
+
+1. **Cap contacts at 1–2 per customer.** Repeated calling reliably reduces subscription probability. Stop after two attempts.
+2. **Prioritize high-signal segments:** retired customers, higher education, no personal loans, positive prior campaign history.
+3. **Tailor messaging by segment:** retired customers respond to security and stability; highly-educated customers respond to long-term growth projections.
+4. **Integrate the tuned Decision Tree as a lead scorer.** The interpretable split rules can be embedded directly in a campaign management workflow to rank leads before dialing.
+
+## Reflections
+
+The leakage discovery was the most important moment of this project. A model with `duration` looks strong (F1 ~0.40 baseline); without it, the real ceiling becomes clear and the work becomes honest. In a real deployment, this distinction determines whether the model is actually useful.
+
+SMOTE served as a useful negative experiment. The proper approach is to apply SMOTE *inside* cross-validation folds using a `Pipeline`, not before splitting — that architectural mistake explained the wide CV/test divergence.
+
+**What I would do differently:**
+
+- Use `imblearn.pipeline.Pipeline` to apply SMOTE inside CV folds properly
+- Test ensemble methods — Random Forest and XGBoost handle class imbalance more robustly than a single Decision Tree
+- Use precision-recall curves instead of a fixed 0.5 threshold, letting business requirements set the operating point
+
+---
+
+**Dataset:** [UCI Bank Marketing](https://archive.ics.uci.edu/dataset/222/bank+marketing)  
+**Code:** [Google Colab Notebook](https://colab.research.google.com/drive/1hDadJ2S8Y25r5SaDhaTGS7qVz6vLzW3f?usp=sharing)
