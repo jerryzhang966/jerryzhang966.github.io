@@ -22,11 +22,7 @@ page-layout: full
     </div>
   </div>
   <div class="hero-deco">
-    <div class="petal p1"></div>
-    <div class="petal p2"></div>
-    <div class="petal p3"></div>
-    <div class="petal p4"></div>
-    <div class="petal p5"></div>
+    <img src="floral.png" class="hero-floral" alt="">
   </div>
 </section>
 ```
