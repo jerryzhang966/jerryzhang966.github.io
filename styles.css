@@ -1,52 +1,62 @@
 /* ---- Hide Quarto auto title ---- */
 #title-block-header { display: none !important; }
 
+/* ---- Fixed floral right sidebar ---- */
+.page-floral {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  width: 240px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.floral-img {
+  height: 100vh;
+  width: auto;
+  display: block;
+  object-fit: cover;
+  object-position: left top;
+}
+
+/* Push all page content left so it doesn't hide under the floral */
+body {
+  padding-right: 240px !important;
+}
+
+/* Hide the auto-generated categories (position swapped to left via Quarto) */
+.quarto-listing-category-title,
+.quarto-listing-category {
+  display: none;
+}
+
 /* ---- Hero section ---- */
 .hero {
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 3rem 2rem 1.5rem;
-  min-height: 320px;
-  overflow: visible;
 }
 
-/* ---- Left/Centre: profile ---- */
 .hero-profile {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.65rem;
   text-align: center;
-  z-index: 1;
-  position: relative;
-}
-
-.avatar-wrapper {
-  width: 160px;
-  height: 160px;
-  overflow: hidden;
-}
-
-.avatar-photo {
-  width: 160px;
-  height: 160px;
-  object-fit: cover;
-  object-position: top center;
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  display: block;
 }
 
 .hero-name {
-  font-size: 1.55rem;
+  font-size: 1.7rem;
   font-weight: 700;
   margin: 0;
   color: #1a1a2e;
 }
 
 .hero-subtitle {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: #666;
   margin: 0;
   letter-spacing: 0.02em;
@@ -55,41 +65,21 @@
 .hero-links {
   display: flex;
   gap: 0.75rem;
-  margin-top: 0.4rem;
+  margin-top: 0.5rem;
 }
 
 .hero-links a {
-  padding: 0.32rem 1rem;
+  padding: 0.35rem 1.1rem;
   border-radius: 20px;
   background: #3b82f6;
   color: white !important;
   text-decoration: none !important;
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   font-weight: 500;
   transition: background 0.2s;
 }
 
 .hero-links a:hover { background: #1d4ed8; }
-
-/* ---- Right: watercolor floral (absolute, decorative) ---- */
-.hero-deco {
-  position: absolute;
-  right: 0;
-  top: -10px;
-  width: 280px;
-  height: 380px;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.hero-floral {
-  width: 280px;
-  height: auto;
-  display: block;
-  object-fit: cover;
-  object-position: top center;
-}
 
 /* ---- CTA text ---- */
 .project-cta {
@@ -97,7 +87,7 @@
   font-size: 1rem;
   color: #555;
   margin: 0.5rem auto 1.8rem;
-  max-width: 650px;
+  max-width: 600px;
 }
 
 /* ---- Grid cards ---- */
@@ -121,6 +111,6 @@
 
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
-  .hero-deco { display: none; }
-  .hero { padding: 2rem 1rem 1rem; }
+  .page-floral { display: none; }
+  body { padding-right: 0 !important; }
 }
