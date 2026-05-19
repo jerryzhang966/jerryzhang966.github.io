@@ -4,6 +4,7 @@ description: "Compared Decision Tree and Logistic Regression classifiers on imba
 author: "Jinrui Zhang"
 date: "2025-12-01"
 categories: [machine-learning, classification, python, imbalanced-data]
+image: cover.jpg
 ---
 
 ## Problem
