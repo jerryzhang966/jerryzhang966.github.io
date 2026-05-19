@@ -11,9 +11,6 @@ page-layout: full
 ```{=html}
 <section class="hero">
   <div class="hero-profile">
-    <div class="avatar-wrapper">
-      <img src="profile.jpg" class="avatar-photo" alt="Jinrui Zhang">
-    </div>
     <h2 class="hero-name">Jinrui (Jerry) Zhang</h2>
     <p class="hero-subtitle">Data Analyst &middot; Business Intelligence &middot; Machine Learning</p>
     <div class="hero-links">
@@ -21,10 +18,11 @@ page-layout: full
       <a href="https://github.com/jerryzhang966" target="_blank">GitHub</a>
     </div>
   </div>
-  <div class="hero-deco">
-    <img src="floral.png" class="hero-floral" alt="">
-  </div>
 </section>
+
+<aside class="page-floral">
+  <img src="floral.png" alt="" class="floral-img">
+</aside>
 ```
 
 ::: {.project-cta}
