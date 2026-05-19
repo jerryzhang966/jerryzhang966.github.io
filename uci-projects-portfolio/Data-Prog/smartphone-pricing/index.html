@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Jinrui Zhang">
+<meta name="dcterms.date" content="2025-12-09">
+<meta name="description" content="Built a multi-stage regression pipeline on 980 real-world smartphones — OLS baseline, Lasso feature selection, log-linear transformation, and Random Forest — to identify key pricing drivers and achieve R² = 0.847.">
 
-<title>quarto-input2fc027b75bb9840b – Jinrui Zhang | Data Portfolio</title>
+<title>Smartphone Predictive Pricing Analysis – Jinrui Zhang | Data Portfolio</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,25 +29,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3e7735b7b22659e5fa437aca0bb49075.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-3e7735b7b22659e5fa437aca0bb49075.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -72,67 +73,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-title','listing-author','listing-date','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -142,7 +85,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">Jinrui Zhang | Data Portfolio</span>
     </a>
   </div>
@@ -153,11 +96,11 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -168,116 +111,277 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Y2xhc3NpZmljYXRpb24=">classification <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZmVhdHVyZS1lbmdpbmVlcmluZw==">feature-engineering <span class="quarto-category-count">(1)</span></div><div class="category" data-category="aW1iYWxhbmNlZC1kYXRh">imbalanced-data <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bGFzc28=">lasso <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bWFjaGluZS1sZWFybmluZw==">machine-learning <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cHl0aG9u">python <span class="quarto-category-count">(2)</span></div><div class="category" data-category="cmFuZG9tLWZvcmVzdA==">random-forest <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cmVncmVzc2lvbg==">regression <span class="quarto-category-count">(1)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#problem" id="toc-problem" class="nav-link active" data-scroll-target="#problem">Problem</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#approach" id="toc-approach" class="nav-link" data-scroll-target="#approach">Approach</a>
+  <ul class="collapse">
+  <li><a href="#stage-1-eda-preprocessing" id="toc-stage-1-eda-preprocessing" class="nav-link" data-scroll-target="#stage-1-eda-preprocessing">Stage 1 — EDA &amp; Preprocessing</a></li>
+  <li><a href="#stage-2-ols-baseline" id="toc-stage-2-ols-baseline" class="nav-link" data-scroll-target="#stage-2-ols-baseline">Stage 2 — OLS Baseline</a></li>
+  <li><a href="#stage-3-lasso-feature-selection" id="toc-stage-3-lasso-feature-selection" class="nav-link" data-scroll-target="#stage-3-lasso-feature-selection">Stage 3 — Lasso Feature Selection</a></li>
+  <li><a href="#stage-4-linear-regression-with-lasso-features" id="toc-stage-4-linear-regression-with-lasso-features" class="nav-link" data-scroll-target="#stage-4-linear-regression-with-lasso-features">Stage 4 — Linear Regression with Lasso Features</a></li>
+  <li><a href="#stage-5-log-linear-regression-primary-model" id="toc-stage-5-log-linear-regression-primary-model" class="nav-link" data-scroll-target="#stage-5-log-linear-regression-primary-model">Stage 5 — Log-Linear Regression (Primary Model)</a></li>
+  <li><a href="#stage-6-random-forest" id="toc-stage-6-random-forest" class="nav-link" data-scroll-target="#stage-6-random-forest">Stage 6 — Random Forest</a></li>
+  </ul></li>
+  <li><a href="#model-comparison" id="toc-model-comparison" class="nav-link" data-scroll-target="#model-comparison">Model Comparison</a></li>
+  <li><a href="#key-findings" id="toc-key-findings" class="nav-link" data-scroll-target="#key-findings">Key Findings</a></li>
+  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content page-columns page-full column-page-left" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Smartphone Predictive Pricing Analysis</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">regression</div>
+    <div class="quarto-category">python</div>
+    <div class="quarto-category">lasso</div>
+    <div class="quarto-category">random-forest</div>
+    <div class="quarto-category">feature-engineering</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Built a multi-stage regression pipeline on 980 real-world smartphones — OLS baseline, Lasso feature selection, log-linear transformation, and Random Forest — to identify key pricing drivers and achieve R² = 0.847.
+  </div>
+</div>
 
 
+<div class="quarto-title-meta">
 
-
-<section class="hero">
-  <div class="hero-profile">
-    <h2 class="hero-name anchored">Jinrui (Jerry) Zhang</h2>
-    <p class="hero-subtitle">Data Analyst · Business Intelligence · Machine Learning</p>
-    <div class="hero-links">
-      <a href="https://www.linkedin.com/in/jinrui-zhang-jerry/" target="_blank">LinkedIn</a>
-      <a href="https://github.com/jerryzhang966" target="_blank">GitHub</a>
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jinrui Zhang </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 9, 2025</p>
     </div>
   </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="problem" class="level2">
+<h2 class="anchored" data-anchor-id="problem">Problem</h2>
+<p>The global smartphone market generates billions in revenue, yet pricing decisions are surprisingly opaque. Which specs actually move the needle on price — and which are just marketing noise?</p>
+<p>Our team tackled two questions:</p>
+<ol type="1">
+<li>Which smartphone specifications most significantly influence price?</li>
+<li>Can we build an effective model to predict smartphone prices from published specs alone?</li>
+</ol>
+</section>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<ul>
+<li><strong>Source:</strong> <a href="https://www.kaggle.com/datasets/abhijitdahatonde/real-world-smartphones-dataset">Kaggle — Real World Smartphones Dataset</a> (Abhijit Dhatonde)</li>
+<li><strong>Size:</strong> 980 entries × 22 variables; 949 usable after cleaning</li>
+<li><strong>Coverage:</strong> 46 brands, 13 processor families, prices in Indian Rupees (INR)</li>
+<li><strong>Notable:</strong> Right-skewed price distribution (mean ≈ 75th percentile); max ₹650,000 (Vertu luxury brand)</li>
+</ul>
+<p>Key variables: <code>price</code>, <code>processor_speed</code>, <code>ram_capacity</code>, <code>internal_memory</code>, <code>battery_capacity</code>, <code>resolution_height/width</code>, <code>os</code> (engineered → <code>ios_not</code>)</p>
+</section>
+<section id="approach" class="level2">
+<h2 class="anchored" data-anchor-id="approach">Approach</h2>
+<section id="stage-1-eda-preprocessing" class="level3">
+<h3 class="anchored" data-anchor-id="stage-1-eda-preprocessing">Stage 1 — EDA &amp; Preprocessing</h3>
+<p>Price distribution was severely right-skewed (skewness = 12.68), signalling a log transformation would be needed. Correlation heatmap revealed a strong negative relationship between <code>processor_speed</code> and <code>extended_memory_available</code> — high-end phones drop SD card slots in favour of fast internal storage — flagging multicollinearity risk.</p>
+<p>Cleaning decisions:</p>
+<ul>
+<li>Median imputation for <code>avg_rating</code>, <code>processor_speed</code>, <code>battery_capacity</code> (40+ missing each)</li>
+<li>Dropped <code>fast_charging</code> (211 missing), <code>model</code> (980 unique classes), <code>processor_brand</code> (13 classes) — high-cardinality or redundant</li>
+<li>Engineered <code>ios_not</code> binary flag to capture Apple’s ecosystem premium</li>
+</ul>
+</section>
+<section id="stage-2-ols-baseline" class="level3">
+<h3 class="anchored" data-anchor-id="stage-2-ols-baseline">Stage 2 — OLS Baseline</h3>
+<p>Full-variable OLS revealed the problem: <strong>R² = 0.430</strong>, condition number = <strong>1.76 × 10⁵</strong> (severe multicollinearity). Multiple features had insignificant p-values. Regularization was needed.</p>
+</section>
+<section id="stage-3-lasso-feature-selection" class="level3">
+<h3 class="anchored" data-anchor-id="stage-3-lasso-feature-selection">Stage 3 — Lasso Feature Selection</h3>
+<p>LassoCV (10-fold, α ≈ 1759) compressed 15 features down to <strong>8 meaningful predictors</strong>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Lasso Coeff</th>
+<th>Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>internal_memory</code></td>
+<td>11,988</td>
+<td>positive</td>
+</tr>
+<tr class="even">
+<td><code>ios_not</code></td>
+<td>5,538</td>
+<td>positive</td>
+</tr>
+<tr class="odd">
+<td><code>resolution_width</code></td>
+<td>4,078</td>
+<td>positive</td>
+</tr>
+<tr class="even">
+<td><code>resolution_height</code></td>
+<td>2,607</td>
+<td>positive</td>
+</tr>
+<tr class="odd">
+<td><code>processor_speed</code></td>
+<td>1,265</td>
+<td>positive</td>
+</tr>
+<tr class="even">
+<td><code>extended_memory_available</code></td>
+<td>-6,069</td>
+<td>negative</td>
+</tr>
+<tr class="odd">
+<td><code>battery_capacity</code></td>
+<td>-1,971</td>
+<td>negative</td>
+</tr>
+<tr class="even">
+<td><code>fast_charging_available</code></td>
+<td>-955</td>
+<td>negative</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="stage-4-linear-regression-with-lasso-features" class="level3">
+<h3 class="anchored" data-anchor-id="stage-4-linear-regression-with-lasso-features">Stage 4 — Linear Regression with Lasso Features</h3>
+<p>Re-fitting OLS on the 8 selected features: <strong>R² = 0.730</strong>. Residual analysis still showed heteroscedasticity — prediction errors fanned out at higher prices.</p>
+</section>
+<section id="stage-5-log-linear-regression-primary-model" class="level3">
+<h3 class="anchored" data-anchor-id="stage-5-log-linear-regression-primary-model">Stage 5 — Log-Linear Regression (Primary Model)</h3>
+<p>Applied <code>log(price + 1)</code> transformation. <strong>R² = 0.847</strong> — explains ~85% of price variation. Residuals became approximately normal with heteroscedasticity largely resolved.</p>
+<p>Key log-linear coefficients:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Coefficient</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>ios_not</code></td>
+<td>+0.584</td>
+<td>iOS adds ~79% price premium over Android</td>
+</tr>
+<tr class="even">
+<td><code>processor_speed</code></td>
+<td>+0.454</td>
+<td>Each GHz adds ~57% to price</td>
+</tr>
+<tr class="odd">
+<td><code>extended_memory_available</code></td>
+<td>-0.279</td>
+<td>SD card slot signals lower-tier device</td>
+</tr>
+<tr class="even">
+<td><code>internal_memory</code></td>
+<td>+0.002</td>
+<td>Each GB adds ~0.2%</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="stage-6-random-forest" class="level3">
+<h3 class="anchored" data-anchor-id="stage-6-random-forest">Stage 6 — Random Forest</h3>
+<p>To capture non-linear interactions (e.g., “small screen + iOS + high performance” = premium), trained Random Forest (100 trees) on Lasso-selected features: <strong>R² = 0.823</strong>.</p>
+<p>Top feature importances: <code>resolution_height</code> (28%), <code>processor_speed</code> (25%), <code>battery_capacity</code> (17%). Notably <code>ios_not</code> dropped to 1.5% — because RF splits on hardware specs that already isolate the iPhone cluster, making OS redundant.</p>
+</section>
+</section>
+<section id="model-comparison" class="level2">
+<h2 class="anchored" data-anchor-id="model-comparison">Model Comparison</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>R²</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>OLS (all features)</td>
+<td>0.430</td>
+<td>Severe multicollinearity</td>
+</tr>
+<tr class="even">
+<td>LR + Lasso features</td>
+<td>0.730</td>
+<td>Clean feature set, still heteroscedastic</td>
+</tr>
+<tr class="odd">
+<td><strong>Log-Linear (primary)</strong></td>
+<td><strong>0.847</strong></td>
+<td>Best interpretability, satisfies regression assumptions</td>
+</tr>
+<tr class="even">
+<td>Random Forest</td>
+<td>0.823</td>
+<td>Best for non-linear interactions, less interpretable</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="key-findings" class="level2">
+<h2 class="anchored" data-anchor-id="key-findings">Key Findings</h2>
+<p><strong>Performance drives price.</strong> Processor speed, internal memory, and screen resolution are the most consistent pricing factors across every model — fundamental to perceived product value.</p>
+<p><strong>Peripheral features add noise, not price.</strong> Fast charging, SD card support, and camera count show weak or negative relationships with price once performance specs are controlled.</p>
+<p><strong>The iOS premium is real and large.</strong> Even after fully controlling for hardware, iOS devices command a ~79% price premium — capturing Apple’s ecosystem, software longevity, and brand equity.</p>
+<p><strong>An interesting model contradiction:</strong> Log-linear attributes large influence to <code>ios_not</code>, while Random Forest nearly ignores it. RF first splits on resolution and processor speed, which effectively identifies the “high-end device” cluster (which happens to include most iPhones). Once that cluster is isolated, OS provides little additional information gain — the brand premium is absorbed into hardware splits.</p>
+</section>
+<section id="limitations" class="level2">
+<h2 class="anchored" data-anchor-id="limitations">Limitations</h2>
+<ul>
+<li><strong>980 observations</strong> is modest for ML — limits generalization to niche brands and new releases</li>
+<li><strong>Prices in INR</strong>, not USD — market conditions and tariffs limit cross-market applicability</li>
+<li><strong>No temporal dimension</strong> — snapshot data; cannot capture depreciation curves or launch cycles</li>
+<li><strong>Macroeconomic blind spots</strong> — supply chain costs, import tariffs, and regional purchasing power are not captured</li>
+</ul>
+
+
 </section>
 
-<aside class="page-floral">
-  <img src="floral.png" alt="" class="floral-img">
-</aside>
-<div class="project-cta">
-<p>Browse my projects below — <strong>click any card to read the full case study</strong></p>
-</div>
-
-
-
-
-<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="cmVncmVzc2lvbiUyQ3B5dGhvbiUyQ2xhc3NvJTJDcmFuZG9tLWZvcmVzdCUyQ2ZlYXR1cmUtZW5naW5lZXJpbmc=" data-listing-date-sort="1765238400000" data-listing-file-modified-sort="1779169781940" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="706">
-<a href="./uci-projects-portfolio/Data-Prog/smartphone-pricing/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./uci-projects-portfolio/Data-Prog/smartphone-pricing/cover.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Smartphone Predictive Pricing Analysis
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('cmVncmVzc2lvbg=='); return false;">regression</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('bGFzc28='); return false;">lasso</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cmFuZG9tLWZvcmVzdA=='); return false;">random-forest</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZmVhdHVyZS1lbmdpbmVlcmluZw=='); return false;">feature-engineering</div>
-
-</div>
-<div class="card-text listing-description delink">
-<p>Built a multi-stage regression pipeline on 980 real-world smartphones — OLS baseline, Lasso feature selection, log-linear transformation, and Random Forest — to identify key…</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Jinrui Zhang
-</div>
-<div class="listing-date">
-Dec 9, 2025
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="1" data-categories="bWFjaGluZS1sZWFybmluZyUyQ2NsYXNzaWZpY2F0aW9uJTJDcHl0aG9uJTJDaW1iYWxhbmNlZC1kYXRh" data-listing-date-sort="1764547200000" data-listing-file-modified-sort="1779169781941" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="791">
-<a href="./uci-projects-portfolio/ML/bank-marketing-ml/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./uci-projects-portfolio/ML/bank-marketing-ml/cover.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Predicting Bank Marketing Campaign Subscriptions
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('bWFjaGluZS1sZWFybmluZw=='); return false;">machine-learning</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y2xhc3NpZmljYXRpb24='); return false;">classification</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('aW1iYWxhbmNlZC1kYXRh'); return false;">imbalanced-data</div>
-
-</div>
-<div class="card-text listing-description delink">
-<p>Compared Decision Tree and Logistic Regression classifiers on imbalanced UCI Bank Marketing data, addressed data leakage, applied SMOTE, and used GridSearchCV to identify…</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Jinrui Zhang
-</div>
-<div class="listing-date">
-Dec 1, 2025
-</div>
-</div>
-</div>
-</div></a>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

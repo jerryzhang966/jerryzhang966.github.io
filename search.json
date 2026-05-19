@@ -49,17 +49,66 @@
     "text": "Reflections\nThe leakage discovery was the most important moment of this project. A model with duration looks strong (F1 ~0.40 baseline); without it, the real ceiling becomes clear and the work becomes honest. In a real deployment, this distinction determines whether the model is actually useful.\nSMOTE served as a useful negative experiment. The proper approach is to apply SMOTE inside cross-validation folds using a Pipeline, not before splitting — that architectural mistake explained the wide CV/test divergence.\nWhat I would do differently:\n\nUse imblearn.pipeline.Pipeline to apply SMOTE inside CV folds properly\nTest ensemble methods — Random Forest and XGBoost handle class imbalance more robustly\nUse precision-recall curves instead of a fixed 0.5 threshold, letting business requirements set the operating point\n\n\nDataset: UCI Bank Marketing\nCode: Google Colab Notebook"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Jinrui Zhang | Data Portfolio",
-    "section": "",
-    "text": "Jinrui (Jerry) Zhang\n    Data Analyst · Business Intelligence · Machine Learning\n    \n      LinkedIn\n      GitHub\n    \n  \n\n\n\n  \n\n\nBrowse my projects below — click any card to read the full case study\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPredicting Bank Marketing Campaign Subscriptions\n\n\n\nmachine-learning\n\nclassification\n\npython\n\nimbalanced-data\n\n\n\nCompared Decision Tree and Logistic Regression classifiers on imbalanced UCI Bank Marketing data, addressed data leakage, applied SMOTE, and used GridSearchCV to identify…\n\n\n\nJinrui Zhang\n\n\nDec 1, 2025\n\n\n\n\n\n\nNo matching items"
-  },
-  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About Me",
     "section": "",
     "text": "I’m Jinrui (Jerry) Zhang, a graduate student in Business Analytics at UC Irvine. I’m interested in turning data into actionable business insights through machine learning, statistical modeling, and data visualization.\nSkills: Python · R · SQL · scikit-learn · pandas · Tableau · Power BI\nInterests: Predictive modeling · Customer analytics · Business intelligence · A/B testing"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Jinrui Zhang | Data Portfolio",
+    "section": "",
+    "text": "Jinrui (Jerry) Zhang\n    Data Analyst · Business Intelligence · Machine Learning\n    \n      LinkedIn\n      GitHub\n    \n  \n\n\n\n  \n\n\nBrowse my projects below — click any card to read the full case study\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSmartphone Predictive Pricing Analysis\n\n\n\nregression\n\npython\n\nlasso\n\nrandom-forest\n\nfeature-engineering\n\n\n\nBuilt a multi-stage regression pipeline on 980 real-world smartphones — OLS baseline, Lasso feature selection, log-linear transformation, and Random Forest — to identify key…\n\n\n\nJinrui Zhang\n\n\nDec 9, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nPredicting Bank Marketing Campaign Subscriptions\n\n\n\nmachine-learning\n\nclassification\n\npython\n\nimbalanced-data\n\n\n\nCompared Decision Tree and Logistic Regression classifiers on imbalanced UCI Bank Marketing data, addressed data leakage, applied SMOTE, and used GridSearchCV to identify…\n\n\n\nJinrui Zhang\n\n\nDec 1, 2025\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "uci-projects-portfolio/Data-Prog/smartphone-pricing/index.html",
+    "href": "uci-projects-portfolio/Data-Prog/smartphone-pricing/index.html",
+    "title": "Smartphone Predictive Pricing Analysis",
+    "section": "",
+    "text": "The global smartphone market generates billions in revenue, yet pricing decisions are surprisingly opaque. Which specs actually move the needle on price — and which are just marketing noise?\nOur team tackled two questions:\n\nWhich smartphone specifications most significantly influence price?\nCan we build an effective model to predict smartphone prices from published specs alone?"
+  },
+  {
+    "objectID": "uci-projects-portfolio/Data-Prog/smartphone-pricing/index.html#problem",
+    "href": "uci-projects-portfolio/Data-Prog/smartphone-pricing/index.html#problem",
+    "title": "Smartphone Predictive Pricing Analysis",
+    "section": "",
+    "text": "The global smartphone market generates billions in revenue, yet pricing decisions are surprisingly opaque. Which specs actually move the needle on price — and which are just marketing noise?\nOur team tackled two questions:\n\nWhich smartphone specifications most significantly influence price?\nCan we build an effective model to predict smartphone prices from published specs alone?"
+  },
+  {
+    "objectID": "uci-projects-portfolio/Data-Prog/smartphone-pricing/index.html#data",
+    "href": "uci-projects-portfolio/Data-Prog/smartphone-pricing/index.html#data",
+    "title": "Smartphone Predictive Pricing Analysis",
+    "section": "Data",
+    "text": "Data\n\nSource: Kaggle — Real World Smartphones Dataset (Abhijit Dhatonde)\nSize: 980 entries × 22 variables; 949 usable after cleaning\nCoverage: 46 brands, 13 processor families, prices in Indian Rupees (INR)\nNotable: Right-skewed price distribution (mean ≈ 75th percentile); max ₹650,000 (Vertu luxury brand)\n\nKey variables: price, processor_speed, ram_capacity, internal_memory, battery_capacity, resolution_height/width, os (engineered → ios_not)"
+  },
+  {
+    "objectID": "uci-projects-portfolio/Data-Prog/smartphone-pricing/index.html#approach",
+    "href": "uci-projects-portfolio/Data-Prog/smartphone-pricing/index.html#approach",
+    "title": "Smartphone Predictive Pricing Analysis",
+    "section": "Approach",
+    "text": "Approach\n\nStage 1 — EDA & Preprocessing\nPrice distribution was severely right-skewed (skewness = 12.68), signalling a log transformation would be needed. Correlation heatmap revealed a strong negative relationship between processor_speed and extended_memory_available — high-end phones drop SD card slots in favour of fast internal storage — flagging multicollinearity risk.\nCleaning decisions:\n\nMedian imputation for avg_rating, processor_speed, battery_capacity (40+ missing each)\nDropped fast_charging (211 missing), model (980 unique classes), processor_brand (13 classes) — high-cardinality or redundant\nEngineered ios_not binary flag to capture Apple’s ecosystem premium\n\n\n\nStage 2 — OLS Baseline\nFull-variable OLS revealed the problem: R² = 0.430, condition number = 1.76 × 10⁵ (severe multicollinearity). Multiple features had insignificant p-values. Regularization was needed.\n\n\nStage 3 — Lasso Feature Selection\nLassoCV (10-fold, α ≈ 1759) compressed 15 features down to 8 meaningful predictors:\n\n\n\nFeature\nLasso Coeff\nDirection\n\n\n\n\ninternal_memory\n11,988\npositive\n\n\nios_not\n5,538\npositive\n\n\nresolution_width\n4,078\npositive\n\n\nresolution_height\n2,607\npositive\n\n\nprocessor_speed\n1,265\npositive\n\n\nextended_memory_available\n-6,069\nnegative\n\n\nbattery_capacity\n-1,971\nnegative\n\n\nfast_charging_available\n-955\nnegative\n\n\n\n\n\nStage 4 — Linear Regression with Lasso Features\nRe-fitting OLS on the 8 selected features: R² = 0.730. Residual analysis still showed heteroscedasticity — prediction errors fanned out at higher prices.\n\n\nStage 5 — Log-Linear Regression (Primary Model)\nApplied log(price + 1) transformation. R² = 0.847 — explains ~85% of price variation. Residuals became approximately normal with heteroscedasticity largely resolved.\nKey log-linear coefficients:\n\n\n\n\n\n\n\n\nFeature\nCoefficient\nInterpretation\n\n\n\n\nios_not\n+0.584\niOS adds ~79% price premium over Android\n\n\nprocessor_speed\n+0.454\nEach GHz adds ~57% to price\n\n\nextended_memory_available\n-0.279\nSD card slot signals lower-tier device\n\n\ninternal_memory\n+0.002\nEach GB adds ~0.2%\n\n\n\n\n\nStage 6 — Random Forest\nTo capture non-linear interactions (e.g., “small screen + iOS + high performance” = premium), trained Random Forest (100 trees) on Lasso-selected features: R² = 0.823.\nTop feature importances: resolution_height (28%), processor_speed (25%), battery_capacity (17%). Notably ios_not dropped to 1.5% — because RF splits on hardware specs that already isolate the iPhone cluster, making OS redundant."
+  },
+  {
+    "objectID": "uci-projects-portfolio/Data-Prog/smartphone-pricing/index.html#model-comparison",
+    "href": "uci-projects-portfolio/Data-Prog/smartphone-pricing/index.html#model-comparison",
+    "title": "Smartphone Predictive Pricing Analysis",
+    "section": "Model Comparison",
+    "text": "Model Comparison\n\n\n\n\n\n\n\n\nModel\nR²\nNotes\n\n\n\n\nOLS (all features)\n0.430\nSevere multicollinearity\n\n\nLR + Lasso features\n0.730\nClean feature set, still heteroscedastic\n\n\nLog-Linear (primary)\n0.847\nBest interpretability, satisfies regression assumptions\n\n\nRandom Forest\n0.823\nBest for non-linear interactions, less interpretable"
+  },
+  {
+    "objectID": "uci-projects-portfolio/Data-Prog/smartphone-pricing/index.html#key-findings",
+    "href": "uci-projects-portfolio/Data-Prog/smartphone-pricing/index.html#key-findings",
+    "title": "Smartphone Predictive Pricing Analysis",
+    "section": "Key Findings",
+    "text": "Key Findings\nPerformance drives price. Processor speed, internal memory, and screen resolution are the most consistent pricing factors across every model — fundamental to perceived product value.\nPeripheral features add noise, not price. Fast charging, SD card support, and camera count show weak or negative relationships with price once performance specs are controlled.\nThe iOS premium is real and large. Even after fully controlling for hardware, iOS devices command a ~79% price premium — capturing Apple’s ecosystem, software longevity, and brand equity.\nAn interesting model contradiction: Log-linear attributes large influence to ios_not, while Random Forest nearly ignores it. RF first splits on resolution and processor speed, which effectively identifies the “high-end device” cluster (which happens to include most iPhones). Once that cluster is isolated, OS provides little additional information gain — the brand premium is absorbed into hardware splits."
+  },
+  {
+    "objectID": "uci-projects-portfolio/Data-Prog/smartphone-pricing/index.html#limitations",
+    "href": "uci-projects-portfolio/Data-Prog/smartphone-pricing/index.html#limitations",
+    "title": "Smartphone Predictive Pricing Analysis",
+    "section": "Limitations",
+    "text": "Limitations\n\n980 observations is modest for ML — limits generalization to niche brands and new releases\nPrices in INR, not USD — market conditions and tariffs limit cross-market applicability\nNo temporal dimension — snapshot data; cannot capture depreciation curves or launch cycles\nMacroeconomic blind spots — supply chain costs, import tariffs, and regional purchasing power are not captured"
   }
 ]
