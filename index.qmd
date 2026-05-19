@@ -1,0 +1,36 @@
+---
+title: " "
+listing:
+  contents: uci-projects-portfolio
+  sort: "date desc"
+  type: grid
+  categories: true
+page-layout: full
+---
+
+```{=html}
+<section class="hero">
+  <div class="hero-profile">
+    <div class="avatar-wrapper">
+      <img src="profile.jpg" class="avatar-photo" alt="Jinrui Zhang">
+    </div>
+    <h2 class="hero-name">Jinrui (Jerry) Zhang</h2>
+    <p class="hero-subtitle">Data Analyst &middot; Business Intelligence &middot; Machine Learning</p>
+    <div class="hero-links">
+      <a href="https://www.linkedin.com/in/jinrui-zhang-jerry/" target="_blank">LinkedIn</a>
+      <a href="https://github.com/jerryzhang966" target="_blank">GitHub</a>
+    </div>
+  </div>
+  <div class="hero-deco">
+    <div class="petal p1"></div>
+    <div class="petal p2"></div>
+    <div class="petal p3"></div>
+    <div class="petal p4"></div>
+    <div class="petal p5"></div>
+  </div>
+</section>
+```
+
+::: {.project-cta}
+Browse my projects below &mdash; **click any card to read the full case study**
+:::
