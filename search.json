@@ -49,13 +49,6 @@
     "text": "Reflections\nThe leakage discovery was the most important moment of this project. A model with duration looks strong (F1 ~0.40 baseline); without it, the real ceiling becomes clear and the work becomes honest. In a real deployment, this distinction determines whether the model is actually useful.\nSMOTE served as a useful negative experiment. The proper approach is to apply SMOTE inside cross-validation folds using a Pipeline, not before splitting — that architectural mistake explained the wide CV/test divergence.\nWhat I would do differently:\n\nUse imblearn.pipeline.Pipeline to apply SMOTE inside CV folds properly\nTest ensemble methods — Random Forest and XGBoost handle class imbalance more robustly\nUse precision-recall curves instead of a fixed 0.5 threshold, letting business requirements set the operating point\n\n\nDataset: UCI Bank Marketing\nCode: Google Colab Notebook"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Jinrui Zhang | Data Portfolio",
-    "section": "",
-    "text": "Jinrui (Jerry) Zhang\n    Data Analyst · Business Intelligence · Machine Learning\n    \n      LinkedIn\n      GitHub\n    \n  \n  \n    \n    \n    \n    \n    \n  \n\n\nBrowse my projects below — click any card to read the full case study\n\n\n\n\n\n\n\n\n\n\n\n\n\nPredicting Bank Marketing Campaign Subscriptions\n\n\n\nmachine-learning\n\nclassification\n\npython\n\nimbalanced-data\n\n\n\nCompared Decision Tree and Logistic Regression classifiers on imbalanced UCI Bank Marketing data, addressed data leakage, applied SMOTE, and used GridSearchCV to identify…\n\n\n\nJinrui Zhang\n\n\nDec 1, 2025\n\n\n\n\n\n\nNo matching items"
-  },
-  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About Me",
