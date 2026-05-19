@@ -1,0 +1,106 @@
+---
+title: "Smartphone Predictive Pricing Analysis"
+description: "Built a multi-stage regression pipeline on 980 real-world smartphones — OLS baseline, Lasso feature selection, log-linear transformation, and Random Forest — to identify key pricing drivers and achieve R² = 0.847."
+author: "Jinrui Zhang"
+date: "2025-12-09"
+image: cover.jpg
+categories: [regression, python, lasso, random-forest, feature-engineering]
+---
+
+## Problem
+
+The global smartphone market generates billions in revenue, yet pricing decisions are surprisingly opaque. Which specs actually move the needle on price — and which are just marketing noise?
+
+Our team tackled two questions:
+
+1. Which smartphone specifications most significantly influence price?
+2. Can we build an effective model to predict smartphone prices from published specs alone?
+
+## Data
+
+- **Source:** [Kaggle — Real World Smartphones Dataset](https://www.kaggle.com/datasets/abhijitdahatonde/real-world-smartphones-dataset) (Abhijit Dhatonde)
+- **Size:** 980 entries × 22 variables; 949 usable after cleaning
+- **Coverage:** 46 brands, 13 processor families, prices in Indian Rupees (INR)
+- **Notable:** Right-skewed price distribution (mean ≈ 75th percentile); max ₹650,000 (Vertu luxury brand)
+
+Key variables: `price`, `processor_speed`, `ram_capacity`, `internal_memory`, `battery_capacity`, `resolution_height/width`, `os` (engineered → `ios_not`)
+
+## Approach
+
+### Stage 1 — EDA & Preprocessing
+
+Price distribution was severely right-skewed (skewness = 12.68), signalling a log transformation would be needed. Correlation heatmap revealed a strong negative relationship between `processor_speed` and `extended_memory_available` — high-end phones drop SD card slots in favour of fast internal storage — flagging multicollinearity risk.
+
+Cleaning decisions:
+
+- Median imputation for `avg_rating`, `processor_speed`, `battery_capacity` (40+ missing each)
+- Dropped `fast_charging` (211 missing), `model` (980 unique classes), `processor_brand` (13 classes) — high-cardinality or redundant
+- Engineered `ios_not` binary flag to capture Apple's ecosystem premium
+
+### Stage 2 — OLS Baseline
+
+Full-variable OLS revealed the problem: **R² = 0.430**, condition number = **1.76 × 10⁵** (severe multicollinearity). Multiple features had insignificant p-values. Regularization was needed.
+
+### Stage 3 — Lasso Feature Selection
+
+LassoCV (10-fold, α ≈ 1759) compressed 15 features down to **8 meaningful predictors**:
+
+| Feature | Lasso Coeff | Direction |
+|---|---|---|
+| `internal_memory` | 11,988 | positive |
+| `ios_not` | 5,538 | positive |
+| `resolution_width` | 4,078 | positive |
+| `resolution_height` | 2,607 | positive |
+| `processor_speed` | 1,265 | positive |
+| `extended_memory_available` | -6,069 | negative |
+| `battery_capacity` | -1,971 | negative |
+| `fast_charging_available` | -955 | negative |
+
+### Stage 4 — Linear Regression with Lasso Features
+
+Re-fitting OLS on the 8 selected features: **R² = 0.730**. Residual analysis still showed heteroscedasticity — prediction errors fanned out at higher prices.
+
+### Stage 5 — Log-Linear Regression (Primary Model)
+
+Applied `log(price + 1)` transformation. **R² = 0.847** — explains ~85% of price variation. Residuals became approximately normal with heteroscedasticity largely resolved.
+
+Key log-linear coefficients:
+
+| Feature | Coefficient | Interpretation |
+|---|---|---|
+| `ios_not` | +0.584 | iOS adds ~79% price premium over Android |
+| `processor_speed` | +0.454 | Each GHz adds ~57% to price |
+| `extended_memory_available` | -0.279 | SD card slot signals lower-tier device |
+| `internal_memory` | +0.002 | Each GB adds ~0.2% |
+
+### Stage 6 — Random Forest
+
+To capture non-linear interactions (e.g., "small screen + iOS + high performance" = premium), trained Random Forest (100 trees) on Lasso-selected features: **R² = 0.823**.
+
+Top feature importances: `resolution_height` (28%), `processor_speed` (25%), `battery_capacity` (17%). Notably `ios_not` dropped to 1.5% — because RF splits on hardware specs that already isolate the iPhone cluster, making OS redundant.
+
+## Model Comparison
+
+| Model | R² | Notes |
+|---|---|---|
+| OLS (all features) | 0.430 | Severe multicollinearity |
+| LR + Lasso features | 0.730 | Clean feature set, still heteroscedastic |
+| **Log-Linear (primary)** | **0.847** | Best interpretability, satisfies regression assumptions |
+| Random Forest | 0.823 | Best for non-linear interactions, less interpretable |
+
+## Key Findings
+
+**Performance drives price.** Processor speed, internal memory, and screen resolution are the most consistent pricing factors across every model — fundamental to perceived product value.
+
+**Peripheral features add noise, not price.** Fast charging, SD card support, and camera count show weak or negative relationships with price once performance specs are controlled.
+
+**The iOS premium is real and large.** Even after fully controlling for hardware, iOS devices command a ~79% price premium — capturing Apple's ecosystem, software longevity, and brand equity.
+
+**An interesting model contradiction:** Log-linear attributes large influence to `ios_not`, while Random Forest nearly ignores it. RF first splits on resolution and processor speed, which effectively identifies the "high-end device" cluster (which happens to include most iPhones). Once that cluster is isolated, OS provides little additional information gain — the brand premium is absorbed into hardware splits.
+
+## Limitations
+
+- **980 observations** is modest for ML — limits generalization to niche brands and new releases
+- **Prices in INR**, not USD — market conditions and tariffs limit cross-market applicability
+- **No temporal dimension** — snapshot data; cannot capture depreciation curves or launch cycles
+- **Macroeconomic blind spots** — supply chain costs, import tariffs, and regional purchasing power are not captured
