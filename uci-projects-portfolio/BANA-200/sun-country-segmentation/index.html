@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Jinrui Zhang">
+<meta name="dcterms.date" content="2025-09-02">
+<meta name="description" content="Applied K-Means clustering (k=5) to 1.86M trip records from Sun Country Airlines to identify five distinct customer segments and develop targeted marketing strategies.">
 
-<title>quarto-inputd794b4115cda1680 – Jinrui Zhang | Data Portfolio</title>
+<title>Sun Country Airlines Customer Segmentation – Jinrui Zhang | Data Portfolio</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,25 +29,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3e7735b7b22659e5fa437aca0bb49075.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-3e7735b7b22659e5fa437aca0bb49075.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -72,67 +73,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-title','listing-author','listing-date','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -142,7 +85,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">Jinrui Zhang | Data Portfolio</span>
     </a>
   </div>
@@ -153,11 +96,11 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -168,153 +111,188 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Y2xhc3NpZmljYXRpb24=">classification <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Y2x1c3RlcmluZw==">clustering <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Y3VzdG9tZXItc2VnbWVudGF0aW9u">customer-segmentation <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RURB">EDA <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZmVhdHVyZS1lbmdpbmVlcmluZw==">feature-engineering <span class="quarto-category-count">(1)</span></div><div class="category" data-category="aW1iYWxhbmNlZC1kYXRh">imbalanced-data <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ay1tZWFucw==">k-means <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bGFzc28=">lasso <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bWFjaGluZS1sZWFybmluZw==">machine-learning <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cHl0aG9u">python <span class="quarto-category-count">(3)</span></div><div class="category" data-category="cmFuZG9tLWZvcmVzdA==">random-forest <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cmVncmVzc2lvbg==">regression <span class="quarto-category-count">(1)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#problem" id="toc-problem" class="nav-link active" data-scroll-target="#problem">Problem</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#approach" id="toc-approach" class="nav-link" data-scroll-target="#approach">Approach</a>
+  <ul class="collapse">
+  <li><a href="#stage-1-eda" id="toc-stage-1-eda" class="nav-link" data-scroll-target="#stage-1-eda">Stage 1 — EDA</a></li>
+  <li><a href="#stage-2-k-means-clustering" id="toc-stage-2-k-means-clustering" class="nav-link" data-scroll-target="#stage-2-k-means-clustering">Stage 2 — K-Means Clustering</a></li>
+  </ul></li>
+  <li><a href="#segments" id="toc-segments" class="nav-link" data-scroll-target="#segments">Segments</a>
+  <ul class="collapse">
+  <li><a href="#segment-profiles-in-detail" id="toc-segment-profiles-in-detail" class="nav-link" data-scroll-target="#segment-profiles-in-detail">Segment Profiles in Detail</a></li>
+  </ul></li>
+  <li><a href="#business-implications" id="toc-business-implications" class="nav-link" data-scroll-target="#business-implications">Business Implications</a></li>
+  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content page-columns page-full column-page-left" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Sun Country Airlines Customer Segmentation</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">clustering</div>
+    <div class="quarto-category">python</div>
+    <div class="quarto-category">k-means</div>
+    <div class="quarto-category">customer-segmentation</div>
+    <div class="quarto-category">EDA</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Applied K-Means clustering (k=5) to 1.86M trip records from Sun Country Airlines to identify five distinct customer segments and develop targeted marketing strategies.
+  </div>
+</div>
 
 
+<div class="quarto-title-meta">
 
-
-<section class="hero">
-  <div class="hero-profile">
-    <h2 class="hero-name anchored">Jinrui (Jerry) Zhang</h2>
-    <p class="hero-subtitle">Data Analyst · Business Intelligence · Machine Learning</p>
-    <div class="hero-links">
-      <a href="https://www.linkedin.com/in/jinrui-zhang-jerry/" target="_blank">LinkedIn</a>
-      <a href="https://github.com/jerryzhang966" target="_blank">GitHub</a>
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jinrui Zhang </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 2, 2025</p>
     </div>
   </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="problem" class="level2">
+<h2 class="anchored" data-anchor-id="problem">Problem</h2>
+<p>Sun Country Airlines needed a data-driven approach to understand its customer base. A one-size-fits-all marketing strategy fails to capture the diverse motivations of different traveler types — leisure families, frequent business flyers, and budget solo travelers all behave differently and respond to different offers.</p>
+<p>Our goal: segment Sun Country’s customer population into meaningful, actionable groups using unsupervised learning, then translate those segments into concrete marketing recommendations.</p>
+</section>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<ul>
+<li><strong>Source:</strong> Sun Country Airlines internal trip records</li>
+<li><strong>Size:</strong> 1.86M trip records, 1.52M unique customers, 90 variables</li>
+<li><strong>Coverage:</strong> January 2013 – December 2014</li>
+<li><strong>Key variables:</strong> <code>age_group</code>, <code>group_size</code>, <code>round_trip</code>, <code>total_spend</code>, <code>days_advance_purchase</code>, <code>UflyRewards</code> membership, origin/destination airport pairs</li>
+</ul>
+<p><strong>Preprocessing:</strong></p>
+<ul>
+<li>Aggregated from trip-level to customer-level (mean per <code>uid</code>)</li>
+<li>Filled missing numeric values with column mean; filled binary flags with 0</li>
+<li>Excluded non-feature identifiers (<code>uid</code>, <code>PNRLocatorID</code>)</li>
+<li>Features pre-normalized to [0, 1] range for K-Means distance calculations</li>
+</ul>
+</section>
+<section id="approach" class="level2">
+<h2 class="anchored" data-anchor-id="approach">Approach</h2>
+<section id="stage-1-eda" class="level3">
+<h3 class="anchored" data-anchor-id="stage-1-eda">Stage 1 — EDA</h3>
+<p>Explored distributions across demographic and behavioral variables. Notable patterns: - Majority of customers booked 0–30 days in advance (opportunistic travelers) - Group size heavily skewed right — most customers travel alone or in pairs - UflyRewards membership correlated with higher spend and advance booking behavior - BOS–MSP and DCA–MSP routes dominated the dataset</p>
+</section>
+<section id="stage-2-k-means-clustering" class="level3">
+<h3 class="anchored" data-anchor-id="stage-2-k-means-clustering">Stage 2 — K-Means Clustering</h3>
+<p>Selected K-Means (scikit-learn) for its interpretability and scalability on 1.5M+ records.</p>
+<p><strong>Choosing k:</strong> Used the elbow method on inertia across k=2 to 10. The curve showed a clear inflection at <strong>k=5</strong> — capturing meaningful behavioral variation without over-segmenting.</p>
+<p><strong>Model:</strong> <code>KMeans(n_clusters=5, random_state=42)</code> on the customer-level aggregated feature matrix.</p>
+</section>
+</section>
+<section id="segments" class="level2">
+<h2 class="anchored" data-anchor-id="segments">Segments</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Cluster</th>
+<th>Label</th>
+<th>Key Profile</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>Budget Solo Travelers</td>
+<td>Low spend, older (35–55+), likely business purpose, fly alone</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Family Vacationers</td>
+<td>Higher group size (avg 1.5), round-trip heavy (0.8), mid-age (35–54), tropical destinations</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Mature Small-Group Travelers</td>
+<td>Higher spend, advance booking, mid-age, Washington D.C. origin</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>Budget Professional Travelers</td>
+<td>Low spend, young adults (25–34 / 35–54), BOS↔︎DCA commute + leisure mix</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>Group Budget Travelers</td>
+<td>Mature 35+, budget fares, larger groups, beach destinations</td>
+</tr>
+</tbody>
+</table>
+<section id="segment-profiles-in-detail" class="level3">
+<h3 class="anchored" data-anchor-id="segment-profiles-in-detail">Segment Profiles in Detail</h3>
+<p><strong>Cluster 0 — Budget Solo Travelers</strong> Predominantly older travelers flying solo on economy fares. Low UflyRewards engagement. Likely price-sensitive and infrequent flyers who book close to departure.</p>
+<p><strong>Cluster 1 — Family Vacationers</strong> Higher group sizes suggest family travel. Strong round-trip preference and mid-age demographics point to leisure-motivated families. Destination patterns skew toward warmer vacation markets.</p>
+<p><strong>Cluster 2 — Mature Small-Group Travelers</strong> Highest average spend per customer. Tend to book further in advance — a signal of planned travel rather than opportunistic booking. Washington D.C. as a common origin suggests professional or government-adjacent travel.</p>
+<p><strong>Cluster 3 — Budget Professional Travelers</strong> Younger demographic, lower spend, concentrated on the BOS–DCA corridor — consistent with commuter-style travel between Boston and Washington. Mix of business and leisure suggests a “bleisure” segment.</p>
+<p><strong>Cluster 4 — Group Budget Travelers</strong> Mature travelers flying in groups to beach destinations. Budget-conscious but travel together — responsive to group discount offers and package deals.</p>
+</section>
+</section>
+<section id="business-implications" class="level2">
+<h2 class="anchored" data-anchor-id="business-implications">Business Implications</h2>
+<p><strong>Targeted marketing by segment:</strong></p>
+<ul>
+<li><strong>Family Vacationers (C1):</strong> Family package deals, resort partnerships, early-bird family pricing</li>
+<li><strong>Professional Travelers (C3):</strong> Commuter pass programs, loyalty point accelerators on BOS–DCA routes</li>
+<li><strong>Mature Small-Group (C2):</strong> Premium upgrade offers, concierge service upsells, advance-purchase discounts</li>
+<li><strong>Group Budget (C4):</strong> Group booking discounts, bundled hotel + flight deals, beach destination promotions</li>
+<li><strong>Budget Solo (C0):</strong> Flash sale alerts, last-minute fare notifications</li>
+</ul>
+<p><strong>Loyalty program (Ufly Rewards):</strong> Clusters 2 and 3 show the highest engagement potential. Personalized tier incentives for these segments could drive retention and revenue per customer.</p>
+<p><strong>Product development:</strong> The existence of a strong family segment (C1) suggests opportunity in expanding Sun Country’s leisure route network to family-friendly destinations, or partnering with vacation rental platforms.</p>
+</section>
+<section id="limitations" class="level2">
+<h2 class="anchored" data-anchor-id="limitations">Limitations</h2>
+<ul>
+<li><strong>Temporal scope:</strong> 2013–2014 data may not reflect current travel behavior post-pandemic restructuring</li>
+<li><strong>Missing context:</strong> No revenue-per-flight or cost data — segments are behavioral, not profitability-ranked</li>
+<li><strong>Static snapshot:</strong> Customer segments shift over time; real deployment would require periodic re-clustering</li>
+<li><strong>External factors:</strong> Macroeconomic conditions, fuel costs, and competitor pricing not captured</li>
+</ul>
+
+
 </section>
 
-<aside class="page-floral">
-  <img src="floral.png" alt="" class="floral-img">
-</aside>
-<div class="project-cta">
-<p>Browse my projects below — <strong>click any card to read the full case study</strong></p>
-</div>
-
-
-
-
-<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="cmVncmVzc2lvbiUyQ3B5dGhvbiUyQ2xhc3NvJTJDcmFuZG9tLWZvcmVzdCUyQ2ZlYXR1cmUtZW5naW5lZXJpbmc=" data-listing-date-sort="1765238400000" data-listing-file-modified-sort="1779239265696" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="706">
-<a href="./uci-projects-portfolio/Data-Prog/smartphone-pricing/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./uci-projects-portfolio/Data-Prog/smartphone-pricing/cover.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Smartphone Predictive Pricing Analysis
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('cmVncmVzc2lvbg=='); return false;">regression</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('bGFzc28='); return false;">lasso</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cmFuZG9tLWZvcmVzdA=='); return false;">random-forest</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZmVhdHVyZS1lbmdpbmVlcmluZw=='); return false;">feature-engineering</div>
-
-</div>
-<div class="card-text listing-description delink">
-<p>Built a multi-stage regression pipeline on 980 real-world smartphones — OLS baseline, Lasso feature selection, log-linear transformation, and Random Forest — to identify key…</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Jinrui Zhang
-</div>
-<div class="listing-date">
-Dec 9, 2025
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="1" data-categories="bWFjaGluZS1sZWFybmluZyUyQ2NsYXNzaWZpY2F0aW9uJTJDcHl0aG9uJTJDaW1iYWxhbmNlZC1kYXRh" data-listing-date-sort="1764547200000" data-listing-file-modified-sort="1779239265697" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="791">
-<a href="./uci-projects-portfolio/ML/bank-marketing-ml/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./uci-projects-portfolio/ML/bank-marketing-ml/cover.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Predicting Bank Marketing Campaign Subscriptions
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('bWFjaGluZS1sZWFybmluZw=='); return false;">machine-learning</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y2xhc3NpZmljYXRpb24='); return false;">classification</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('aW1iYWxhbmNlZC1kYXRh'); return false;">imbalanced-data</div>
-
-</div>
-<div class="card-text listing-description delink">
-<p>Compared Decision Tree and Logistic Regression classifiers on imbalanced UCI Bank Marketing data, addressed data leakage, applied SMOTE, and used GridSearchCV to identify…</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Jinrui Zhang
-</div>
-<div class="listing-date">
-Dec 1, 2025
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="2" data-categories="Y2x1c3RlcmluZyUyQ3B5dGhvbiUyQ2stbWVhbnMlMkNjdXN0b21lci1zZWdtZW50YXRpb24lMkNFREE=" data-listing-date-sort="1756771200000" data-listing-file-modified-sort="1779239265696" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="639">
-<a href="./uci-projects-portfolio/BANA-200/sun-country-segmentation/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./uci-projects-portfolio/BANA-200/sun-country-segmentation/cover.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Sun Country Airlines Customer Segmentation
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y2x1c3RlcmluZw=='); return false;">clustering</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('ay1tZWFucw=='); return false;">k-means</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y3VzdG9tZXItc2VnbWVudGF0aW9u'); return false;">customer-segmentation</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('RURB'); return false;">EDA</div>
-
-</div>
-<div class="card-text listing-description delink">
-<p>Applied K-Means clustering (k=5) to 1.86M trip records from Sun Country Airlines to identify five distinct customer segments and develop targeted marketing strategies.</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Jinrui Zhang
-</div>
-<div class="listing-date">
-Sep 2, 2025
-</div>
-</div>
-</div>
-</div></a>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
