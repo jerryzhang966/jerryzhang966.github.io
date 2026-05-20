@@ -1,0 +1,94 @@
+---
+title: "Sun Country Airlines Customer Segmentation"
+description: "Applied K-Means clustering (k=5) to 1.86M trip records from Sun Country Airlines to identify five distinct customer segments and develop targeted marketing strategies."
+author: "Jinrui Zhang"
+date: "2025-09-02"
+image: cover.jpg
+categories: [clustering, python, k-means, customer-segmentation, EDA]
+---
+
+## Problem
+
+Sun Country Airlines needed a data-driven approach to understand its customer base. A one-size-fits-all marketing strategy fails to capture the diverse motivations of different traveler types — leisure families, frequent business flyers, and budget solo travelers all behave differently and respond to different offers.
+
+Our goal: segment Sun Country's customer population into meaningful, actionable groups using unsupervised learning, then translate those segments into concrete marketing recommendations.
+
+## Data
+
+- **Source:** Sun Country Airlines internal trip records
+- **Size:** 1.86M trip records, 1.52M unique customers, 90 variables
+- **Coverage:** January 2013 – December 2014
+- **Key variables:** `age_group`, `group_size`, `round_trip`, `total_spend`, `days_advance_purchase`, `UflyRewards` membership, origin/destination airport pairs
+
+**Preprocessing:**
+
+- Aggregated from trip-level to customer-level (mean per `uid`)
+- Filled missing numeric values with column mean; filled binary flags with 0
+- Excluded non-feature identifiers (`uid`, `PNRLocatorID`)
+- Features pre-normalized to [0, 1] range for K-Means distance calculations
+
+## Approach
+
+### Stage 1 — EDA
+
+Explored distributions across demographic and behavioral variables. Notable patterns:
+- Majority of customers booked 0–30 days in advance (opportunistic travelers)
+- Group size heavily skewed right — most customers travel alone or in pairs
+- UflyRewards membership correlated with higher spend and advance booking behavior
+- BOS–MSP and DCA–MSP routes dominated the dataset
+
+### Stage 2 — K-Means Clustering
+
+Selected K-Means (scikit-learn) for its interpretability and scalability on 1.5M+ records.
+
+**Choosing k:** Used the elbow method on inertia across k=2 to 10. The curve showed a clear inflection at **k=5** — capturing meaningful behavioral variation without over-segmenting.
+
+**Model:** `KMeans(n_clusters=5, random_state=42)` on the customer-level aggregated feature matrix.
+
+## Segments
+
+| Cluster | Label | Key Profile |
+|---|---|---|
+| 0 | Budget Solo Travelers | Low spend, older (35–55+), likely business purpose, fly alone |
+| 1 | Family Vacationers | Higher group size (avg 1.5), round-trip heavy (0.8), mid-age (35–54), tropical destinations |
+| 2 | Mature Small-Group Travelers | Higher spend, advance booking, mid-age, Washington D.C. origin |
+| 3 | Budget Professional Travelers | Low spend, young adults (25–34 / 35–54), BOS↔DCA commute + leisure mix |
+| 4 | Group Budget Travelers | Mature 35+, budget fares, larger groups, beach destinations |
+
+### Segment Profiles in Detail
+
+**Cluster 0 — Budget Solo Travelers**
+Predominantly older travelers flying solo on economy fares. Low UflyRewards engagement. Likely price-sensitive and infrequent flyers who book close to departure.
+
+**Cluster 1 — Family Vacationers**
+Higher group sizes suggest family travel. Strong round-trip preference and mid-age demographics point to leisure-motivated families. Destination patterns skew toward warmer vacation markets.
+
+**Cluster 2 — Mature Small-Group Travelers**
+Highest average spend per customer. Tend to book further in advance — a signal of planned travel rather than opportunistic booking. Washington D.C. as a common origin suggests professional or government-adjacent travel.
+
+**Cluster 3 — Budget Professional Travelers**
+Younger demographic, lower spend, concentrated on the BOS–DCA corridor — consistent with commuter-style travel between Boston and Washington. Mix of business and leisure suggests a "bleisure" segment.
+
+**Cluster 4 — Group Budget Travelers**
+Mature travelers flying in groups to beach destinations. Budget-conscious but travel together — responsive to group discount offers and package deals.
+
+## Business Implications
+
+**Targeted marketing by segment:**
+
+- **Family Vacationers (C1):** Family package deals, resort partnerships, early-bird family pricing
+- **Professional Travelers (C3):** Commuter pass programs, loyalty point accelerators on BOS–DCA routes
+- **Mature Small-Group (C2):** Premium upgrade offers, concierge service upsells, advance-purchase discounts
+- **Group Budget (C4):** Group booking discounts, bundled hotel + flight deals, beach destination promotions
+- **Budget Solo (C0):** Flash sale alerts, last-minute fare notifications
+
+**Loyalty program (Ufly Rewards):** Clusters 2 and 3 show the highest engagement potential. Personalized tier incentives for these segments could drive retention and revenue per customer.
+
+**Product development:** The existence of a strong family segment (C1) suggests opportunity in expanding Sun Country's leisure route network to family-friendly destinations, or partnering with vacation rental platforms.
+
+## Limitations
+
+- **Temporal scope:** 2013–2014 data may not reflect current travel behavior post-pandemic restructuring
+- **Missing context:** No revenue-per-flight or cost data — segments are behavioral, not profitability-ranked
+- **Static snapshot:** Customer segments shift over time; real deployment would require periodic re-clustering
+- **External factors:** Macroeconomic conditions, fuel costs, and competitor pricing not captured
