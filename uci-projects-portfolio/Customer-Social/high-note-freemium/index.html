@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Jinrui Zhang">
+<meta name="dcterms.date" content="2026-03-10">
+<meta name="description" content="Analyzed 43,827 users of a music streaming platform to identify drivers of freemium-to-premium conversion — combining descriptive stats, Propensity Score Matching, logistic regression, and forward subset selection.">
 
-<title>quarto-input5efd7f30b0b50ebe – Jinrui Zhang | Data Portfolio</title>
+<title>High Note Freemium Conversion Analysis – Jinrui Zhang | Data Portfolio</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,25 +29,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3e7735b7b22659e5fa437aca0bb49075.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-3e7735b7b22659e5fa437aca0bb49075.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -72,67 +73,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-title','listing-author','listing-date','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -142,7 +85,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">Jinrui Zhang | Data Portfolio</span>
     </a>
   </div>
@@ -153,11 +96,11 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -168,190 +111,195 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Y2xhc3NpZmljYXRpb24=">classification <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Y2x1c3RlcmluZw==">clustering <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Y3VzdG9tZXItc2VnbWVudGF0aW9u">customer-segmentation <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RURB">EDA <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZmVhdHVyZS1lbmdpbmVlcmluZw==">feature-engineering <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZnJlZW1pdW0=">freemium <span class="quarto-category-count">(1)</span></div><div class="category" data-category="aW1iYWxhbmNlZC1kYXRh">imbalanced-data <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ay1tZWFucw==">k-means <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bGFzc28=">lasso <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bG9naXN0aWMtcmVncmVzc2lvbg==">logistic-regression <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bWFjaGluZS1sZWFybmluZw==">machine-learning <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cHJvcGVuc2l0eS1zY29yZS1tYXRjaGluZw==">propensity-score-matching <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cHl0aG9u">python <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Ug==">R <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cmFuZG9tLWZvcmVzdA==">random-forest <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cmVncmVzc2lvbg==">regression <span class="quarto-category-count">(1)</span></div><div class="category" data-category="c29jaWFsLWFuYWx5dGljcw==">social-analytics <span class="quarto-category-count">(1)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#problem" id="toc-problem" class="nav-link active" data-scroll-target="#problem">Problem</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#approach" id="toc-approach" class="nav-link" data-scroll-target="#approach">Approach</a>
+  <ul class="collapse">
+  <li><a href="#stage-1-descriptive-statistics-adopter-vs.-non-adopter-comparison" id="toc-stage-1-descriptive-statistics-adopter-vs.-non-adopter-comparison" class="nav-link" data-scroll-target="#stage-1-descriptive-statistics-adopter-vs.-non-adopter-comparison">Stage 1 — Descriptive Statistics &amp; Adopter vs.&nbsp;Non-Adopter Comparison</a></li>
+  <li><a href="#stage-2-propensity-score-matching-psm" id="toc-stage-2-propensity-score-matching-psm" class="nav-link" data-scroll-target="#stage-2-propensity-score-matching-psm">Stage 2 — Propensity Score Matching (PSM)</a></li>
+  <li><a href="#stage-3-logistic-regression" id="toc-stage-3-logistic-regression" class="nav-link" data-scroll-target="#stage-3-logistic-regression">Stage 3 — Logistic Regression</a></li>
+  <li><a href="#stage-4-forward-subset-regression" id="toc-stage-4-forward-subset-regression" class="nav-link" data-scroll-target="#stage-4-forward-subset-regression">Stage 4 — Forward Subset Regression</a></li>
+  </ul></li>
+  <li><a href="#key-findings" id="toc-key-findings" class="nav-link" data-scroll-target="#key-findings">Key Findings</a></li>
+  <li><a href="#business-recommendations" id="toc-business-recommendations" class="nav-link" data-scroll-target="#business-recommendations">Business Recommendations</a></li>
+  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content page-columns page-full column-page-left" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">High Note Freemium Conversion Analysis</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">propensity-score-matching</div>
+    <div class="quarto-category">logistic-regression</div>
+    <div class="quarto-category">social-analytics</div>
+    <div class="quarto-category">R</div>
+    <div class="quarto-category">freemium</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Analyzed 43,827 users of a music streaming platform to identify drivers of freemium-to-premium conversion — combining descriptive stats, Propensity Score Matching, logistic regression, and forward subset selection.
+  </div>
+</div>
 
 
+<div class="quarto-title-meta">
 
-
-<section class="hero">
-  <div class="hero-profile">
-    <h2 class="hero-name anchored">Jinrui (Jerry) Zhang</h2>
-    <p class="hero-subtitle">Data Analyst · Business Intelligence · Machine Learning</p>
-    <div class="hero-links">
-      <a href="https://www.linkedin.com/in/jinrui-zhang-jerry/" target="_blank">LinkedIn</a>
-      <a href="https://github.com/jerryzhang966" target="_blank">GitHub</a>
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jinrui Zhang </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 10, 2026</p>
     </div>
   </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="problem" class="level2">
+<h2 class="anchored" data-anchor-id="problem">Problem</h2>
+<p>High Note, a music streaming platform operating on a freemium model, had 1.2M+ users but only ~3% premium subscriber rate. Ad revenue alone couldn’t cover operating costs, making premium conversion the company’s central business challenge.</p>
+<p>Our team analyzed user-level data to answer three questions:</p>
+<ol type="1">
+<li>What behavioral and social factors predict premium adoption?</li>
+<li>Does having premium-subscriber friends <em>causally</em> increase a user’s conversion probability?</li>
+<li>Which variables are most predictive — and how few do you need for accurate targeting?</li>
+</ol>
+</section>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<ul>
+<li><strong>Dataset:</strong> 43,827 High Note users (instructor case, University of Minnesota SOBACO lab)</li>
+<li><strong>Variables:</strong> Demographics (age, gender, country), social network (friend count, subscriber friend count, friend diversity), engagement (songs listened, loved tracks, playlists, shouts, posts), tenure</li>
+<li><strong>Target:</strong> <code>adopter</code> — binary flag, 1 = upgraded to premium subscription</li>
+</ul>
+</section>
+<section id="approach" class="level2">
+<h2 class="anchored" data-anchor-id="approach">Approach</h2>
+<section id="stage-1-descriptive-statistics-adopter-vs.-non-adopter-comparison" class="level3">
+<h3 class="anchored" data-anchor-id="stage-1-descriptive-statistics-adopter-vs.-non-adopter-comparison">Stage 1 — Descriptive Statistics &amp; Adopter vs.&nbsp;Non-Adopter Comparison</h3>
+<p>Computed means, standard deviations, and ranges for all key variables. Compared adopters (premium) against non-adopters (freemium) across three dimensions:</p>
+<p><strong>Demographics:</strong> Adopters tend to be slightly younger (avg 26 vs 24), slightly more male (76% vs 66%), and slightly more likely to be from outside the US/UK/Germany. Differences are modest — demographics alone are weak predictors.</p>
+<p><strong>Peer Influence:</strong> Adopters have an adopter-friend ratio of <strong>0.0496</strong> vs <strong>0.02095</strong> for non-adopters — more than twice the proportion of premium friends. Strong association, but correlation, not causation.</p>
+<p><strong>User Engagement:</strong> Adopters average <strong>264.3 loved tracks</strong> vs 86.8 for non-adopters; <strong>99.4 shouts</strong> vs 30. Songs listened: 33,758 vs 17,589. Playlist creation and tenure show smaller differences.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="fig1-demographics.png" class="img-fluid figure-img"></p>
+<figcaption>Demographics comparison across adopter groups</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="fig2-peer-engagement.png" class="img-fluid figure-img"></p>
+<figcaption>Peer influence and user engagement by adopter status</figcaption>
+</figure>
+</div>
+</section>
+<section id="stage-2-propensity-score-matching-psm" class="level3">
+<h3 class="anchored" data-anchor-id="stage-2-propensity-score-matching-psm">Stage 2 — Propensity Score Matching (PSM)</h3>
+<p><strong>Why PSM?</strong> Directly comparing users with vs without premium friends conflates the peer effect with underlying activity levels — highly active users both have more friends AND are more likely to pay. PSM controls for confounders to isolate the causal effect.</p>
+<p><strong>Method:</strong> - Treatment group: users with ≥1 paying friend (9,823 users) - Control group: users with no paying friends - Covariates: 13 features including age, gender, friend count, songs listened, posts, playlists, tenure - Matching: 1:1 nearest-neighbor on logistic propensity scores</p>
+<p><strong>Results:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Metric</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Treatment group conversion rate</td>
+<td>17.75%</td>
+</tr>
+<tr class="even">
+<td>Control group conversion rate</td>
+<td>9.76%</td>
+</tr>
+<tr class="odd">
+<td>Average Treatment Effect (ATE)</td>
+<td><strong>+7.99 pp</strong></td>
+</tr>
+<tr class="even">
+<td>T-statistic</td>
+<td>16.37</td>
+</tr>
+<tr class="odd">
+<td>P-value</td>
+<td>8 × 10⁻⁶⁰</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interpretation:</strong> Having at least one paying friend increases a free user’s conversion probability by ~8 percentage points — nearly doubling the baseline rate. The result is highly significant, providing causal evidence that peer influence drives monetization.</p>
+</section>
+<section id="stage-3-logistic-regression" class="level3">
+<h3 class="anchored" data-anchor-id="stage-3-logistic-regression">Stage 3 — Logistic Regression</h3>
+<p>Binomial logistic regression to predict adoption and estimate log-odds ratios for each predictor.</p>
+<p><strong>Significant at α = 0.00 (11 variables):</strong> - Loved tracks, songs listened, playlists, posts - Friend count, subscriber friend count, friend country count, average friend age - Age, tenure, country (good country flag)</p>
+<p><strong>Not significant:</strong> whether friends are male, shouts</p>
+<p><strong>Key insight:</strong> Music interaction behaviors (liking tracks, making playlists) and social network diversity (friends from different countries) are the strongest signals. Users who actively engage with platform features AND have geographically diverse networks are most likely to convert.</p>
+</section>
+<section id="stage-4-forward-subset-regression" class="level3">
+<h3 class="anchored" data-anchor-id="stage-4-forward-subset-regression">Stage 4 — Forward Subset Regression</h3>
+<p>Identified the minimum feature set that captures most predictive power. The accuracy curve plateaus meaningfully at <strong>7 features</strong> — these are the minimum needed for consistent targeting accuracy.</p>
+<p><strong>Top 7 predictors (in order):</strong> 1. Loved tracks 2. Songs listened 3. Subscriber friend count 4. Age 5. Good country 6. Friend country count 7. Friend count</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="fig4-subset.png" class="img-fluid figure-img"></p>
+<figcaption>Forward subset regression: R² vs number of predictors</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="key-findings" class="level2">
+<h2 class="anchored" data-anchor-id="key-findings">Key Findings</h2>
+<p><strong>Engagement beats demographics.</strong> Loved tracks and songs listened are the top two predictors. How users interact with content matters far more than who they are.</p>
+<p><strong>Peer influence is causal, not just correlated.</strong> PSM confirms an 8 pp lift from having premium friends after controlling for all activity confounders. This is actionable: seeding premium users into social clusters of free users can drive conversions.</p>
+<p><strong>Social network diversity is a hidden signal.</strong> Users with friends from more countries are significantly more likely to convert — possibly reflecting early-adopter personality traits or exposure to broader platform culture.</p>
+<p><strong>You need only 7 variables.</strong> A lean targeting model using just 7 features captures most of the predictive signal — useful for real-time campaign scoring where full data isn’t always available.</p>
+</section>
+<section id="business-recommendations" class="level2">
+<h2 class="anchored" data-anchor-id="business-recommendations">Business Recommendations</h2>
+<p><strong>Referral program:</strong> Incentivize existing premium subscribers to refer free-user friends (e.g., one free premium month for both parties on successful conversion). PSM proves their influence is real — turn them into the platform’s conversion engine.</p>
+<p><strong>Targeted promotions:</strong> Free users who already have premium friends in their social circle have an 8 pp higher baseline conversion potential. Prioritize them for discount campaigns — highest ROI per marketing dollar.</p>
+<p><strong>Encourage engagement before conversion asks:</strong> Users who loved tracks, created playlists, and shout back-and-forth are far more likely to pay. Nudge new users toward these behaviors before showing upgrade prompts.</p>
+</section>
+<section id="limitations" class="level2">
+<h2 class="anchored" data-anchor-id="limitations">Limitations</h2>
+<ul>
+<li>Observational data — PSM addresses confounding but cannot rule out all unmeasured variables</li>
+<li>Single time-period snapshot — no longitudinal tracking of conversion timing</li>
+<li>Dataset is anonymized teaching case; real deployment would require A/B testing to validate PSM causal estimates</li>
+</ul>
+
+
 </section>
 
-<aside class="page-floral">
-  <img src="floral.png" alt="" class="floral-img">
-</aside>
-<div class="project-cta">
-<p>Browse my projects below — <strong>click any card to read the full case study</strong></p>
-</div>
-
-
-
-
-<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="cHJvcGVuc2l0eS1zY29yZS1tYXRjaGluZyUyQ2xvZ2lzdGljLXJlZ3Jlc3Npb24lMkNzb2NpYWwtYW5hbHl0aWNzJTJDUiUyQ2ZyZWVtaXVt" data-listing-date-sort="1773100800000" data-listing-file-modified-sort="1779351670648" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="812">
-<a href="./uci-projects-portfolio/Customer-Social/high-note-freemium/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./uci-projects-portfolio/Customer-Social/high-note-freemium/cover.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-High Note Freemium Conversion Analysis
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('cHJvcGVuc2l0eS1zY29yZS1tYXRjaGluZw=='); return false;">propensity-score-matching</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('bG9naXN0aWMtcmVncmVzc2lvbg=='); return false;">logistic-regression</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('c29jaWFsLWFuYWx5dGljcw=='); return false;">social-analytics</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZnJlZW1pdW0='); return false;">freemium</div>
-
-</div>
-<div class="card-text listing-description delink">
-<p>Analyzed 43,827 users of a music streaming platform to identify drivers of freemium-to-premium conversion — combining descriptive stats, Propensity Score Matching, logistic…</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Jinrui Zhang
-</div>
-<div class="listing-date">
-Mar 10, 2026
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="1" data-categories="cmVncmVzc2lvbiUyQ3B5dGhvbiUyQ2xhc3NvJTJDcmFuZG9tLWZvcmVzdCUyQ2ZlYXR1cmUtZW5naW5lZXJpbmc=" data-listing-date-sort="1765238400000" data-listing-file-modified-sort="1779351670648" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="706">
-<a href="./uci-projects-portfolio/Data-Prog/smartphone-pricing/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./uci-projects-portfolio/Data-Prog/smartphone-pricing/cover.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Smartphone Predictive Pricing Analysis
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('cmVncmVzc2lvbg=='); return false;">regression</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('bGFzc28='); return false;">lasso</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cmFuZG9tLWZvcmVzdA=='); return false;">random-forest</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZmVhdHVyZS1lbmdpbmVlcmluZw=='); return false;">feature-engineering</div>
-
-</div>
-<div class="card-text listing-description delink">
-<p>Built a multi-stage regression pipeline on 980 real-world smartphones — OLS baseline, Lasso feature selection, log-linear transformation, and Random Forest — to identify key…</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Jinrui Zhang
-</div>
-<div class="listing-date">
-Dec 9, 2025
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="2" data-categories="bWFjaGluZS1sZWFybmluZyUyQ2NsYXNzaWZpY2F0aW9uJTJDcHl0aG9uJTJDaW1iYWxhbmNlZC1kYXRh" data-listing-date-sort="1764547200000" data-listing-file-modified-sort="1779351670649" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="791">
-<a href="./uci-projects-portfolio/ML/bank-marketing-ml/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./uci-projects-portfolio/ML/bank-marketing-ml/cover.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Predicting Bank Marketing Campaign Subscriptions
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('bWFjaGluZS1sZWFybmluZw=='); return false;">machine-learning</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y2xhc3NpZmljYXRpb24='); return false;">classification</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('aW1iYWxhbmNlZC1kYXRh'); return false;">imbalanced-data</div>
-
-</div>
-<div class="card-text listing-description delink">
-<p>Compared Decision Tree and Logistic Regression classifiers on imbalanced UCI Bank Marketing data, addressed data leakage, applied SMOTE, and used GridSearchCV to identify…</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Jinrui Zhang
-</div>
-<div class="listing-date">
-Dec 1, 2025
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="3" data-categories="Y2x1c3RlcmluZyUyQ3B5dGhvbiUyQ2stbWVhbnMlMkNjdXN0b21lci1zZWdtZW50YXRpb24lMkNFREE=" data-listing-date-sort="1756771200000" data-listing-file-modified-sort="1779351670648" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="639">
-<a href="./uci-projects-portfolio/BANA-200/sun-country-segmentation/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./uci-projects-portfolio/BANA-200/sun-country-segmentation/cover.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Sun Country Airlines Customer Segmentation
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y2x1c3RlcmluZw=='); return false;">clustering</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('ay1tZWFucw=='); return false;">k-means</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y3VzdG9tZXItc2VnbWVudGF0aW9u'); return false;">customer-segmentation</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('RURB'); return false;">EDA</div>
-
-</div>
-<div class="card-text listing-description delink">
-<p>Applied K-Means clustering (k=5) to 1.86M trip records from Sun Country Airlines to identify five distinct customer segments and develop targeted marketing strategies.</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Jinrui Zhang
-</div>
-<div class="listing-date">
-Sep 2, 2025
-</div>
-</div>
-</div>
-</div></a>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
