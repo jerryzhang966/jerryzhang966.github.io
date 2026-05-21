@@ -35,9 +35,11 @@ Computed means, standard deviations, and ranges for all key variables. Compared 
 
 **User Engagement:** Adopters average **264.3 loved tracks** vs 86.8 for non-adopters; **99.4 shouts** vs 30. Songs listened: 33,758 vs 17,589. Playlist creation and tenure show smaller differences.
 
-![Demographics comparison across adopter groups](fig1-demographics.png)
+![Demographics: adopters skew younger, more male, and more international](fig1-demographics.png)
 
-![Peer influence and user engagement by adopter status](fig2-peer-engagement.png)
+![Peer influence: adopters have 2× the premium friend ratio of non-adopters](fig2-peer.png)
+
+![User engagement: adopters average 3× more loved tracks and shouts than non-adopters](fig3-engagement.png)
 
 ### Stage 2 — Propensity Score Matching (PSM)
 
