@@ -1,0 +1,122 @@
+---
+title: "Global Supply Chain Management Simulation"
+description: "Managed a simulated smartphone company through 4 years of supply chain decisions — balancing demand forecasting, supplier selection, and inventory risk to generate $197.5M in total profit."
+author: "Jinrui Zhang"
+date: "2026-05-21"
+categories: [supply-chain, forecasting, inventory-management, simulation, operations]
+---
+
+## Overview
+
+In UCI's Supply Chain Analytics course, our team of four ran the **Harvard Business Publishing Global Supply Chain Management Simulation V2** — a multi-round exercise where we acted as the supply chain leadership of a smartphone manufacturer, making interconnected decisions across product design, demand forecasting, and production sourcing over four simulated years.
+
+| | Detail |
+|---|---|
+| **Simulation** | HBP Global Supply Chain Management V2 |
+| **Team** | Team 7 — 4 members |
+| **Models** | Model A (lower markdown cost) · Model B (high liquidation cost) |
+| **Decision areas** | Product design · Demand forecasting · Supplier selection · Production orders |
+| **Total profit** | **$197,480,640** across 4 years |
+
+---
+
+## Simulation Structure
+
+Each year consisted of three decision rooms:
+
+**Design Room** — Choose up to 2 feature options (e.g., Upgraded Communication, Stylish, High Quality Audio). Each option shifts the expected demand distribution for Model A and/or B, affecting both the mean *and* variance of forecasts.
+
+**Forecast Room** — Listen to 5 internal forecasters with different expertise levels. Combine their inputs to produce a single demand forecast for each model. Credibility weighting and variance between forecasters both matter.
+
+**Production Room** — Allocate production across 4 suppliers with different cost/lead-time tradeoffs:
+
+| Supplier | Cost | Lead Time | Best Use |
+|---|---|---|---|
+| FarFarAway | Lowest | 4 months | Predictable, high-volume base |
+| FarAway | Moderate | Medium | Mid-flexibility buffer |
+| PrettyClose | Higher | Short | Reactive adjustments |
+| VeryClose | Highest | Shortest | Emergency only |
+
+A key asymmetry: **Model B** carries much higher holding, markdown, and liquidation costs than Model A — any overstock of Model B is disproportionately expensive.
+
+---
+
+## Year-by-Year Strategy
+
+### Year 1 — Establishing a Baseline
+
+**Design:** Upgraded Communication + Stylish. Rationale: align with the company's "faster and sleeker" design brief. Stylish partially offset the demand variance introduced by Upgraded Communication.
+
+**Forecast:** Selectively weighted — trusted Andrei (industry experience, Y) and Claire (specialist forecaster, Y) over less-credentialed forecasters. Model A: 59.5k, Model B: 35k.
+
+**Suppliers:** FarFarAway (50k Model A, 10k Model B) + FarAway (10k Model B) + PrettyClose (reactive buffer for Model B). Issued one production change order mid-year after Model B demand increased, adjusting PrettyClose upward.
+
+**Result:** $47,327,100 | Board votes: 2/5
+Board criticism centered on the communication feature choice and limited supplier flexibility.
+
+---
+
+### Year 2 — Shift Toward Predictability
+
+**Design:** Stylish + Storage Capacity. Both options reduced standard deviation across both models. Avoided Extended Battery and Durability specifically because they introduced extreme demand variance — the priority shifted from demand mean to demand predictability.
+
+**Forecast:** Used the average of all forecasters given low inter-forecaster variance. Model A: 55k, Model B: 32k.
+
+**Suppliers:** Same structure as Year 1. Issued two production change orders after major demand events caused sharp drops — reduced FarFarAway and FarAway production to avoid excess Model B inventory.
+
+**Result:** $51,572,640 | Board votes: 3/5
+Improvement recognized in design option evaluation; feedback noted need for better sourcing flexibility.
+
+---
+
+### Year 3 — Leaner and More Flexible
+
+**Design:** High Quality Audio only. This was the only option that decreased variance for *both* models while also lifting Model B's average expected demand. Rejected Extended Battery, Durability, and Anti-Theft — all increased demand uncertainty significantly.
+
+**Forecast:** Model A: 67k (above average of 65; holding cost is low so slight overstock is acceptable). Model B: 26k (below average of 29; liquidation cost risk justified a conservative stance).
+
+**Suppliers:** Dropped FarAway entirely — $2M setup cost, and over-reliance in Year 2 had reduced flexibility. Shifted to FarFarAway (60k Model A) + PrettyClose (26k Model B + 7k Model A buffer). Issued 2 change orders to reduce PrettyClose production as Model B demand fell.
+
+**Result:** $44,326,300 | Board votes: 4/5
+Lower profit due to ongoing demand volatility in Model B, but board recognized improved inventory balancing and design option reasoning.
+
+---
+
+### Year 4 — Optimized and Disciplined
+
+**Design:** High Quality Audio again. Achieved SD = 1 for Model A — near-perfect predictability. Only slight increase in Model B variance in exchange for higher average demand on both models.
+
+**Forecast:** Model A: 63k (simple average, SD = 1 makes it reliable). Model B: 20k (cautious — historical demand consistently underperformed; average was 26k but SD = 9).
+
+**Suppliers:** FarFarAway (60k Model A) + PrettyClose (20k Model B + 3k Model A). Did not issue production change orders this year.
+
+**Result:** $54,254,600 | Board votes: 4/5
+Highest single-year profit. Board recognized understanding of forecast credibility weighting and the asymmetric cost structures of Model A vs. B.
+
+---
+
+## Results Summary
+
+| Year | Net Profit | Board Votes |
+|---|---|---|
+| Year 1 | $47,327,100 | 2 / 5 |
+| Year 2 | $51,572,640 | 3 / 5 |
+| Year 3 | $44,326,300 | 4 / 5 |
+| Year 4 | $54,254,600 | 4 / 5 |
+| **Total** | **$197,480,640** | — |
+
+Board vote improvement from 2/5 → 4/5 reflects the strategy's maturation: better design option evaluation, more disciplined supplier selection, and more context-sensitive inventory decisions.
+
+---
+
+## Key Lessons
+
+**Demand variance matters as much as demand level.** Choosing design options that lower the standard deviation — even at the cost of a slightly lower expected mean — improved forecast accuracy and inventory outcomes more than chasing higher average demand with higher uncertainty.
+
+**Asymmetric inventory costs require asymmetric strategies.** Model B's high liquidation cost meant that the optimal forecast was *below* the mean (intentionally conservative), while Model A's lower markdown cost allowed slight overstock. The same "average-based" rule would have been appropriate for one model and costly for the other.
+
+**Cheapest supplier ≠ best supplier.** FarFarAway's low cost was valuable for predictable Model A production, but its 4-month lead time made it unsuitable for the reactive Model B supply. FarAway was dropped in Year 3 because its $2M setup cost couldn't be justified when PrettyClose provided equivalent flexibility at lower overhead.
+
+**Forecast credibility weighting outperforms consensus.** Early rounds demonstrated that averaging all forecasters diluted signal from high-credibility sources. Weighting by track record and expertise — particularly Andrei's industry experience — improved accuracy.
+
+**Production change orders are a tool, not a fallback.** Issuing 2 change orders in Years 2 and 3 to reduce overexposed Model B inventory reflected proactive demand monitoring, not reactive panic. Year 4's zero change orders reflected supply alignment with demand — a sign of improved forecasting, not passivity.
