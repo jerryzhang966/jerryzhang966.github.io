@@ -11,6 +11,7 @@ page-layout: full
 ```{=html}
 <section class="hero">
   <div class="hero-profile">
+    <img src="profile.jpg" alt="Jinrui Zhang" class="hero-avatar">
     <h2 class="hero-name">Jinrui (Jerry) Zhang</h2>
     <p class="hero-subtitle">Data Analyst &middot; Business Intelligence &middot; Machine Learning</p>
     <div class="hero-links">
