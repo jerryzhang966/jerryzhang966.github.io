@@ -1,10 +1,10 @@
 ---
 title: "Maximizing Sales Engineering Performance"
-description: "MSBA Capstone with Cotality — quantified SE impact across 6K+ deals and 43K sales calls, tested 5 behavioral hypotheses using Salesforce and Gong data, and delivered a win-probability scoring tool for SE leadership."
+description: "MSBA Capstone with Cotality — fused Salesforce CRM records with semi-structured Gong call data across 6K+ deals and 43K calls. Tested 5 behavioral hypotheses and built a win-probability scoring tool that surfaced ~$555K in untapped revenue. Tools: Python · R · SQL · Salesforce · Gong API"
 author: "Jinrui Zhang"
 date: "2026-05-15"
-image: cover.jpg
-categories: [capstone, hypothesis-testing, sales-analytics, python, R, cotality]
+image: cover.png
+categories: [Capstone, Hypothesis Testing, CRM Analytics, Python, R, SQL, Salesforce, Gong]
 ---
 
 ## Overview
