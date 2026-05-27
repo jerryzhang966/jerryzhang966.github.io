@@ -3,6 +3,7 @@ title: "Global Supply Chain Management Simulation"
 description: "Managed a simulated smartphone company through 4 years of supply chain decisions — balancing demand forecasting, supplier selection, and inventory risk to generate $197.5M in total profit."
 author: "Jinrui Zhang"
 date: "2026-05-21"
+image: cover.jpg
 categories: [supply-chain, forecasting, inventory-management, simulation, operations]
 ---
 
