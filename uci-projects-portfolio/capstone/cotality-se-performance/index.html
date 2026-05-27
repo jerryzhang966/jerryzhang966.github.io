@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jinrui Zhang">
+<meta name="dcterms.date" content="2026-05-15">
+<meta name="description" content="MSBA Capstone with Cotality — quantified SE impact across 6K+ deals and 43K sales calls, tested 5 behavioral hypotheses using Salesforce and Gong data, and delivered a win-probability scoring tool for SE leadership.">
+
+<title>Maximizing Sales Engineering Performance – Jinrui Zhang | Data Portfolio</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-94b323657c735dfe3b1bf6ebb2c33a55.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Jinrui Zhang | Data Portfolio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#five-hypotheses-tested" id="toc-five-hypotheses-tested" class="nav-link" data-scroll-target="#five-hypotheses-tested">Five Hypotheses Tested</a>
+  <ul class="collapse">
+  <li><a href="#h1-se-reshapes-why-deals-are-lost" id="toc-h1-se-reshapes-why-deals-are-lost" class="nav-link" data-scroll-target="#h1-se-reshapes-why-deals-are-lost">H1 — SE Reshapes Why Deals Are Lost</a></li>
+  <li><a href="#h2-se-multiplies-multi-product-deals" id="toc-h2-se-multiplies-multi-product-deals" class="nav-link" data-scroll-target="#h2-se-multiplies-multi-product-deals">H2 — SE Multiplies Multi-Product Deals</a></li>
+  <li><a href="#h3-talk-ratio-precision-matters-more-than-direction" id="toc-h3-talk-ratio-precision-matters-more-than-direction" class="nav-link" data-scroll-target="#h3-talk-ratio-precision-matters-more-than-direction">H3 — Talk Ratio: Precision Matters More Than Direction</a></li>
+  <li><a href="#h4-outside-sales-win-rate-collapses-above-50k" id="toc-h4-outside-sales-win-rate-collapses-above-50k" class="nav-link" data-scroll-target="#h4-outside-sales-win-rate-collapses-above-50k">H4 — Outside Sales Win Rate Collapses Above $50K</a></li>
+  <li><a href="#h5-faster-conversation-cadence-consistently-predicts-winning" id="toc-h5-faster-conversation-cadence-consistently-predicts-winning" class="nav-link" data-scroll-target="#h5-faster-conversation-cadence-consistently-predicts-winning">H5 — Faster Conversation Cadence Consistently Predicts Winning</a></li>
+  </ul></li>
+  <li><a href="#bonus-finding-se-roi-is-segment-specific" id="toc-bonus-finding-se-roi-is-segment-specific" class="nav-link" data-scroll-target="#bonus-finding-se-roi-is-segment-specific">Bonus Finding: SE ROI Is Segment-Specific</a></li>
+  <li><a href="#deliverable-win-probability-scoring-tool" id="toc-deliverable-win-probability-scoring-tool" class="nav-link" data-scroll-target="#deliverable-win-probability-scoring-tool">Deliverable: Win-Probability Scoring Tool</a></li>
+  <li><a href="#my-contributions" id="toc-my-contributions" class="nav-link" data-scroll-target="#my-contributions">My Contributions</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Maximizing Sales Engineering Performance</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">capstone</div>
+    <div class="quarto-category">hypothesis-testing</div>
+    <div class="quarto-category">sales-analytics</div>
+    <div class="quarto-category">python</div>
+    <div class="quarto-category">R</div>
+    <div class="quarto-category">cotality</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    MSBA Capstone with Cotality — quantified SE impact across 6K+ deals and 43K sales calls, tested 5 behavioral hypotheses using Salesforce and Gong data, and delivered a win-probability scoring tool for SE leadership.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jinrui Zhang </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 15, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>Cotality’s Sales Engineering (SE) team closes deals worth <strong>4× more</strong> than deals without SE coverage — yet leadership had no data to prove it. SE contribution was invisible in the CRM: no way to tie SE activity to win rates, deal velocity, or revenue outcomes.</p>
+<p><strong>Our mission</strong>: quantify SE’s true impact, identify the behavioral drivers of deal success, and deliver a scoring tool SE leadership can use to prioritize where to focus.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Client</strong></td>
+<td>Cotality (formerly CoreLogic) — real estate data &amp; analytics</td>
+</tr>
+<tr class="even">
+<td><strong>Team</strong></td>
+<td>Aldrich Han · Alex Huang · Vanessa Rodriguez · Heta Shah · Jerry Zhang</td>
+</tr>
+<tr class="odd">
+<td><strong>Program</strong></td>
+<td>UCI Paul Merage MSBA Capstone · May 2026</td>
+</tr>
+<tr class="even">
+<td><strong>My Role</strong></td>
+<td>Analysis Lead — Talk Ratio · Engagement Velocity · Dashboard Architecture</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<p>Two systems, joined by a single key.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Scale</th>
+<th>What It Captures</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Salesforce</strong></td>
+<td>6,039 opportunities · 61 fields</td>
+<td>Deal outcomes, ACV, SE assignment, stage progression</td>
+</tr>
+<tr class="even">
+<td><strong>Gong</strong></td>
+<td>43,000 calls · 13 tables</td>
+<td>Talk ratios, call cadence, conversation engagement</td>
+</tr>
+<tr class="odd">
+<td><strong>Matched Dataset</strong></td>
+<td>802 deals with full coverage</td>
+<td>Every deal with both outcome AND behavioral signal</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p><em>Salesforce tells us <strong>what happened</strong>. Gong tells us <strong>how</strong>. OppId is the bridge.</em></p>
+</blockquote>
+<hr>
+</section>
+<section id="five-hypotheses-tested" class="level2">
+<h2 class="anchored" data-anchor-id="five-hypotheses-tested">Five Hypotheses Tested</h2>
+<section id="h1-se-reshapes-why-deals-are-lost" class="level3">
+<h3 class="anchored" data-anchor-id="h1-se-reshapes-why-deals-are-lost">H1 — SE Reshapes Why Deals Are Lost</h3>
+<p><strong>χ² = 20.99, p = 0.0038 · Reject H₀</strong></p>
+<p>SE involvement doesn’t just affect win rates — it changes the composition of losses. Deals with SE are <strong>9 percentage points less likely</strong> to end in “Client Unresponsive,” but become more prone to stalling on budget.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Loss Reason</th>
+<th>With SE</th>
+<th>Without SE</th>
+<th>Δ</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Budget / No Funding</td>
+<td>18.9%</td>
+<td>13.0%</td>
+<td>+5.9%</td>
+</tr>
+<tr class="even">
+<td>Client Unresponsive</td>
+<td>8.2%</td>
+<td>17.2%</td>
+<td><strong>−9.0%</strong></td>
+</tr>
+<tr class="odd">
+<td>Lost to Competitor</td>
+<td>7.0%</td>
+<td>4.3%</td>
+<td>+2.7%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation</strong>: Before assigning an SE to a complex deal, validate budget availability and decision-making authority. SE time is wasted on deals that will fail for financial reasons a rep could screen out earlier.</p>
+<hr>
+</section>
+<section id="h2-se-multiplies-multi-product-deals" class="level3">
+<h3 class="anchored" data-anchor-id="h2-se-multiplies-multi-product-deals">H2 — SE Multiplies Multi-Product Deals</h3>
+<p><strong>Interaction OR = 3.569, p &lt; 0.0001 · Reject H₀</strong></p>
+<p>SE has no measurable effect on single-product deals (p = 0.61) — but <strong>nearly doubles the win rate</strong> on multi-product deals.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Segment</th>
+<th>No SE</th>
+<th>With SE</th>
+<th>Lift</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Single-product</td>
+<td>39.3%</td>
+<td>37.5%</td>
+<td>Not significant</td>
+</tr>
+<tr class="even">
+<td>Multi-product</td>
+<td>34.6%</td>
+<td><strong>67.1%</strong></td>
+<td><strong>+32.5 pp</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Sweet spot: 4-product bundles carry the highest median ACV ($32K). Beyond 20 products, complexity erodes both win rate and ACV.</p>
+<p><strong>Recommendation</strong>: Route SE capacity to multi-product opportunities — that’s where SE effort produces measurable ROI.</p>
+<hr>
+</section>
+<section id="h3-talk-ratio-precision-matters-more-than-direction" class="level3">
+<h3 class="anchored" data-anchor-id="h3-talk-ratio-precision-matters-more-than-direction">H3 — Talk Ratio: Precision Matters More Than Direction</h3>
+<p><strong>z = 1.72, p = 0.043 (mid-tier) · Conditional Reject H₀</strong></p>
+<p>Cotality SEs speak only <strong>29%</strong> of call time on average — far below Gong’s 40–55% optimal range. Across all deals, talk ratio shows no significant effect (p = 0.69). But segment by deal size, and a 20-point gap emerges in mid-tier deals.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Deal Tier</th>
+<th>Balanced (40–55%)</th>
+<th>High Talk (&gt;60%)</th>
+<th>Δ</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Small (&lt;$5K)</td>
+<td>44.1%</td>
+<td>55.2%</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td><strong>Mid ($5K–$27K)</strong></td>
+<td><strong>46.0%</strong></td>
+<td><strong>27.3%</strong></td>
+<td><strong>+18.7 pp</strong></td>
+</tr>
+<tr class="odd">
+<td>Large (&gt;$27K)</td>
+<td>42.4%</td>
+<td>62.5%</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation</strong>: For mid-complexity deals, coach SEs toward a 40–55% talk ratio. That’s the only tier where the behavior change produces statistically significant, measurable ROI.</p>
+<hr>
+</section>
+<section id="h4-outside-sales-win-rate-collapses-above-50k" class="level3">
+<h3 class="anchored" data-anchor-id="h4-outside-sales-win-rate-collapses-above-50k">H4 — Outside Sales Win Rate Collapses Above $50K</h3>
+<p><strong>p = 0.0057 · Reject H₀</strong></p>
+<p>Outside sales reps outperform inside sales on small deals — but their win rate <strong>halves</strong> once deals exceed $50K without technical SE support.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Channel</th>
+<th>≤ $50K</th>
+<th>&gt; $50K</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Inside Sales</td>
+<td>42.5%</td>
+<td>33.8%</td>
+</tr>
+<tr class="even">
+<td>Outside Sales</td>
+<td>57.6%</td>
+<td><strong>23.4%</strong></td>
+</tr>
+</tbody>
+</table>
+<p>SE adds <strong>+12.6 percentage points</strong> and <strong>+$3,019 per deal</strong> on outside deals ≥ $50K. Currently 184 of these high-value deals had no SE coverage — representing <strong>~$555K in untapped incremental ACV</strong>.</p>
+<p><strong>Recommendation</strong>: In Salesforce, trigger automatic SE assignment at first touch for Outside Sales + ACV ≥ $50K.</p>
+<hr>
+</section>
+<section id="h5-faster-conversation-cadence-consistently-predicts-winning" class="level3">
+<h3 class="anchored" data-anchor-id="h5-faster-conversation-cadence-consistently-predicts-winning">H5 — Faster Conversation Cadence Consistently Predicts Winning</h3>
+<p><strong>Monotonic decline significant · Reject H₀</strong></p>
+<p>Win rate falls steadily as the gap between conversations widens — from <strong>63%</strong> on deals with calls every 10 days, down to <strong>28%</strong> for deals with 80+ day gaps. SE involvement raises the baseline by +10 to +24 percentage points at every cadence level, but the velocity slope is <strong>identical</strong> whether or not SE is involved (interaction p = 0.173, n.s.).</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Avg Gap Between Calls</th>
+<th>Win Rate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0–10 days</td>
+<td>63% (n = 49)</td>
+</tr>
+<tr class="even">
+<td>10–20 days</td>
+<td>56% (n = 61)</td>
+</tr>
+<tr class="odd">
+<td>20–40 days</td>
+<td>48% (n = 86)</td>
+</tr>
+<tr class="even">
+<td>40–80 days</td>
+<td>43% (n = 65)</td>
+</tr>
+<tr class="odd">
+<td>80+ days</td>
+<td>28% (n = 47)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation</strong>: SE cannot compensate for slow follow-up. Regardless of SE coverage, target follow-ups within 0–30 days.</p>
+<hr>
+</section>
+</section>
+<section id="bonus-finding-se-roi-is-segment-specific" class="level2">
+<h2 class="anchored" data-anchor-id="bonus-finding-se-roi-is-segment-specific">Bonus Finding: SE ROI Is Segment-Specific</h2>
+<p>The same ~+28 pp win-rate lift from SE coverage produces dramatically different revenue outcomes across industries.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Segment</th>
+<th>SE Win Lift</th>
+<th>Median ACV</th>
+<th>Marginal $/deal</th>
+<th>Upside per 200 deals</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>University (&lt;$50K)</td>
+<td>+27.5 pp (p = 0.002)</td>
+<td>$8.8K</td>
+<td>$2.4K</td>
+<td>$482K</td>
+</tr>
+<tr class="even">
+<td>Finance ($50K–$100K)</td>
+<td>+30.1 pp (p = 0.014)</td>
+<td>$69.5K</td>
+<td>$20.9K</td>
+<td><strong>$4.18M</strong></td>
+</tr>
+</tbody>
+</table>
+<p>SE coverage should not be one-size-fits-all: Finance/mid-market delivers <strong>9× the revenue upside</strong> per SE hour versus small/university deals.</p>
+<hr>
+</section>
+<section id="deliverable-win-probability-scoring-tool" class="level2">
+<h2 class="anchored" data-anchor-id="deliverable-win-probability-scoring-tool">Deliverable: Win-Probability Scoring Tool</h2>
+<p>We translated all five hypotheses into an interactive <strong>Sales Intelligence dashboard</strong> — a step-by-step calculator SE leadership can use to score any deal in the pipeline in real time.</p>
+<p><strong>Inputs</strong>: Product count · SE assigned · Engagement cadence · Sales channel · Talk ratio<br>
+<strong>Output</strong>: Predicted win probability with full math trace — every percentage point traces back to a specific hypothesis finding.</p>
+<blockquote class="blockquote">
+<p><em>From blind spot to decision — in one view.</em></p>
+</blockquote>
+<hr>
+</section>
+<section id="my-contributions" class="level2">
+<h2 class="anchored" data-anchor-id="my-contributions">My Contributions</h2>
+<ul>
+<li><strong>H3 (Talk Ratio)</strong>: Full pipeline from data join to final visualization — ACV-tier segmentation, chi-square and z-tests per tier, insight framing</li>
+<li><strong>H5 (Engagement Velocity)</strong>: Joined Gong timestamp tables to Salesforce outcomes, computed time-delta features per deal, logistic regression controlling for deal size, SE interaction analysis</li>
+<li><strong>Dashboard architecture</strong>: Designed the step-by-step probability accumulator, mapped each hypothesis to a lookup bucket, wrote the scoring logic</li>
+<li>Reviewed and QA’d H1, H2, H4 analyses for statistical correctness prior to final presentation</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
