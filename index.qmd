@@ -6,6 +6,8 @@ listing:
     sort: "date desc"
     type: grid
     grid-columns: 1
+    max-description-length: 280
+    fields: [image, date, title, description, categories]
   - id: others-listing
     contents:
       - uci-projects-portfolio/BANA-200
