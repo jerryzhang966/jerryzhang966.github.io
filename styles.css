@@ -139,15 +139,16 @@ body {
   min-width: 0;
 }
 
-/* Featured card: tall and prominent */
+/* ---- Featured card: tall and prominent ---- */
 .portfolio-featured .quarto-grid-item {
-  min-height: 600px !important;
+  min-height: 560px !important;
   position: relative;
 }
 
 .portfolio-featured .card-img-top {
-  height: 290px !important;
+  height: 340px !important;
   object-fit: cover !important;
+  object-position: center top !important;
 }
 
 .portfolio-featured .card-title {
@@ -155,11 +156,17 @@ body {
   font-weight: 700 !important;
 }
 
-/* "Capstone" badge in top-left corner of featured card */
+.portfolio-featured .card-text {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: #444;
+}
+
+/* ---- "Capstone Project" badge ---- */
 .portfolio-featured .quarto-grid-item::before {
   content: "★  Capstone Project";
   display: block;
-  background: linear-gradient(120deg, #7c3aed 0%, #db2777 100%);
+  background: linear-gradient(120deg, #7c3aed 0%, #db2877 100%);
   color: white;
   font-size: 0.7rem;
   font-weight: 700;
@@ -171,6 +178,32 @@ body {
   left: 0;
   z-index: 10;
   border-radius: 10px 0 8px 0;
+}
+
+/* ---- Skill category badges on featured card ---- */
+.portfolio-featured .listing-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.75rem;
+  padding: 0 0.1rem;
+}
+
+.portfolio-featured .listing-category {
+  background: linear-gradient(120deg, #ede9fe, #fce7f3);
+  border: 1px solid #c4b5fd;
+  color: #6d28d9;
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+  text-decoration: none !important;
+  letter-spacing: 0.03em;
+  transition: background 0.15s;
+}
+
+.portfolio-featured .listing-category:hover {
+  background: linear-gradient(120deg, #ddd6fe, #fbcfe8);
 }
 
 /* ---- Responsive: stack on tablet/mobile ---- */
@@ -187,7 +220,7 @@ body {
     min-height: auto !important;
   }
   .portfolio-featured .card-img-top {
-    height: 200px !important;
+    height: 220px !important;
   }
   .page-floral { display: none; }
   body { padding-right: 0 !important; }
