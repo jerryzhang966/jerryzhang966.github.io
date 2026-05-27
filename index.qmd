@@ -6,7 +6,7 @@ listing:
     sort: "date desc"
     type: grid
     grid-columns: 1
-    max-description-length: 600
+    max-description-length: 800
     fields: [image, date, title, description, categories]
   - id: others-listing
     contents:
@@ -56,3 +56,33 @@ Browse my projects below &mdash; **click any card to read the full case study**
 ::::
 
 :::::
+
+```{=html}
+<script>
+(function() {
+  function fixCoverImage() {
+    var p = document.querySelector('.portfolio-featured .card-img-top');
+    var img = document.querySelector('.portfolio-featured .card-img-top img');
+    if (p) {
+      p.style.setProperty('height', 'auto', 'important');
+      p.style.setProperty('max-height', 'none', 'important');
+      p.style.setProperty('overflow', 'hidden', 'important');
+    }
+    if (img) {
+      img.style.setProperty('width', '100%', 'important');
+      img.style.setProperty('height', 'auto', 'important');
+      img.style.setProperty('max-height', 'none', 'important');
+      img.style.setProperty('display', 'block', 'important');
+      img.style.setProperty('object-fit', 'fill', 'important');
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fixCoverImage);
+  } else {
+    fixCoverImage();
+  }
+  setTimeout(fixCoverImage, 150);
+  setTimeout(fixCoverImage, 600);
+})();
+</script>
+```
