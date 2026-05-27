@@ -6,7 +6,7 @@ listing:
     sort: "date desc"
     type: grid
     grid-columns: 1
-    max-description-length: 280
+    max-description-length: 600
     fields: [image, date, title, description, categories]
   - id: others-listing
     contents:
