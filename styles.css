@@ -102,7 +102,7 @@ body {
   max-width: 600px;
 }
 
-/* ---- Grid cards ---- */
+/* ---- Grid cards (shared) ---- */
 .quarto-grid-item {
   transition: transform 0.22s ease, box-shadow 0.22s ease;
   border-radius: 10px !important;
@@ -121,8 +121,74 @@ body {
   font-weight: 600;
 }
 
-/* ---- Responsive ---- */
-@media (max-width: 768px) {
+/* ---- Portfolio two-column featured layout ---- */
+.portfolio-layout {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  padding: 0 1rem 2rem;
+}
+
+.portfolio-featured {
+  flex: 0 0 41%;
+  max-width: 41%;
+}
+
+.portfolio-others {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Featured card: tall and prominent */
+.portfolio-featured .quarto-grid-item {
+  min-height: 600px !important;
+  position: relative;
+}
+
+.portfolio-featured .card-img-top {
+  height: 290px !important;
+  object-fit: cover !important;
+}
+
+.portfolio-featured .card-title {
+  font-size: 1.18rem !important;
+  font-weight: 700 !important;
+}
+
+/* "Capstone" badge in top-left corner of featured card */
+.portfolio-featured .quarto-grid-item::before {
+  content: "★  Capstone Project";
+  display: block;
+  background: linear-gradient(120deg, #7c3aed 0%, #db2777 100%);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.9rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  border-radius: 10px 0 8px 0;
+}
+
+/* ---- Responsive: stack on tablet/mobile ---- */
+@media (max-width: 991px) {
+  .portfolio-layout {
+    flex-direction: column;
+  }
+  .portfolio-featured {
+    flex: none;
+    max-width: 100%;
+    width: 100%;
+  }
+  .portfolio-featured .quarto-grid-item {
+    min-height: auto !important;
+  }
+  .portfolio-featured .card-img-top {
+    height: 200px !important;
+  }
   .page-floral { display: none; }
   body { padding-right: 0 !important; }
   .hero-avatar { width: 96px; height: 96px; }
