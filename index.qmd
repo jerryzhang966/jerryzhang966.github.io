@@ -1,10 +1,21 @@
 ---
 title: " "
 listing:
-  contents: uci-projects-portfolio
-  sort: "date desc"
-  type: grid
-  categories: true
+  - id: featured-listing
+    contents: uci-projects-portfolio/capstone
+    sort: "date desc"
+    type: grid
+    grid-columns: 1
+  - id: others-listing
+    contents:
+      - uci-projects-portfolio/BANA-200
+      - uci-projects-portfolio/Customer-Social
+      - uci-projects-portfolio/Data-Prog
+      - uci-projects-portfolio/ML
+      - uci-projects-portfolio/SCM
+    sort: "date desc"
+    type: grid
+    grid-columns: 2
 page-layout: full
 ---
 
@@ -29,3 +40,17 @@ page-layout: full
 ::: {.project-cta}
 Browse my projects below &mdash; **click any card to read the full case study**
 :::
+
+::::: {.portfolio-layout}
+
+:::: {.portfolio-featured}
+::: {#featured-listing}
+:::
+::::
+
+:::: {.portfolio-others}
+::: {#others-listing}
+:::
+::::
+
+:::::
