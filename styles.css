@@ -144,14 +144,22 @@ body {
   position: relative;
 }
 
-/* Show full cover image using exact 2816:1536 aspect ratio — no cropping */
+/* Show full cover image — unconstrain Quarto's fixed-height wrapper <p> */
 .portfolio-featured .card-img-top {
+  height: auto !important;
+  max-height: none !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
+/* Target the actual <img> tag (Quarto wraps it inside .card-img-top) */
+.portfolio-featured .card-img-top img,
+.portfolio-featured .thumbnail-image.card-img {
   width: 100% !important;
   height: auto !important;
-  aspect-ratio: 2816 / 1536 !important;
-  object-fit: cover !important;
-  object-position: center !important;
-  display: block;
+  max-height: none !important;
+  display: block !important;
+  object-fit: fill !important;
 }
 
 .portfolio-featured .card-title {
@@ -219,8 +227,9 @@ body {
     max-width: 100%;
     width: 100%;
   }
-  .portfolio-featured .card-img-top {
-    aspect-ratio: 2816 / 1536 !important;
+  .portfolio-featured .card-img-top img {
+    width: 100% !important;
+    height: auto !important;
   }
   .page-floral { display: none; }
   body { padding-right: 0 !important; }
