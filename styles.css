@@ -162,9 +162,19 @@ body {
   object-fit: fill !important;
 }
 
+/* Tighten gap between image and text block */
+.portfolio-featured .card-img-top {
+  margin-bottom: 0 !important;
+}
+
+.portfolio-featured .card-body {
+  padding-top: 0.65rem !important;
+}
+
 .portfolio-featured .card-title {
   font-size: 1.18rem !important;
   font-weight: 700 !important;
+  margin-bottom: 0.35rem !important;
 }
 
 .portfolio-featured .card-text {
@@ -235,3 +245,4 @@ body {
   body { padding-right: 0 !important; }
   .hero-avatar { width: 96px; height: 96px; }
 }
+
