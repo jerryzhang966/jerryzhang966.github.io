@@ -8,7 +8,7 @@
 
 <meta name="author" content="Jinrui Zhang">
 <meta name="dcterms.date" content="2026-05-15">
-<meta name="description" content="MSBA Capstone with Cotality (formerly CoreLogic) — matched 43K Gong conversation recordings to 6,039 Salesforce CRM opportunities to uncover what drives Sales Engineering deal success. Integrated semi-structured call data with structured CRM records, then applied chi-square tests, z-tests, and logistic regression to 5 behavioral hypotheses. Key findings: multi-product SE engagement lifts win rate 34.6% → 67.1% (+32pp); outside-sales SE coverage gap >$50K represents ~$555K untapped opportunity; balanced SE talk ratio (40–55%) predicts wins only in mid-tier $5K–$27K deals. Delivered a win-probability scoring dashboard for SE leadership to prioritize high-opportunity accounts.">
+<meta name="description" content="MSBA Capstone with one of the nation’s largest PropTech companies — matched 43K Gong conversation recordings to 6,039 Salesforce CRM opportunities to uncover what drives Sales Engineering deal success. Integrated semi-structured call data with structured CRM records, then applied chi-square tests, z-tests, and logistic regression to 5 behavioral hypotheses. Key findings: multi-product SE engagement lifts win rate 34.6% → 67.1% (+32pp); outside-sales SE coverage gap >$50K represents ~$555K untapped opportunity; balanced SE talk ratio (40–55%) predicts wins only in mid-tier $5K–$27K deals. Delivered a win-probability scoring dashboard for SE leadership to prioritize high-opportunity accounts.">
 
 <title>Maximizing Sales Engineering Performance – Jinrui Zhang | Data Portfolio</title>
 <style>
@@ -131,7 +131,6 @@ ul.task-list li input[type="checkbox"] {
   </ul></li>
   <li><a href="#bonus-finding-se-roi-is-segment-specific" id="toc-bonus-finding-se-roi-is-segment-specific" class="nav-link" data-scroll-target="#bonus-finding-se-roi-is-segment-specific">Bonus Finding: SE ROI Is Segment-Specific</a></li>
   <li><a href="#deliverable-win-probability-scoring-tool" id="toc-deliverable-win-probability-scoring-tool" class="nav-link" data-scroll-target="#deliverable-win-probability-scoring-tool">Deliverable: Win-Probability Scoring Tool</a></li>
-  <li><a href="#my-contributions" id="toc-my-contributions" class="nav-link" data-scroll-target="#my-contributions">My Contributions</a></li>
   </ul>
 </nav>
     </div>
@@ -155,7 +154,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    MSBA Capstone with Cotality (formerly CoreLogic) — matched 43K Gong conversation recordings to 6,039 Salesforce CRM opportunities to uncover what drives Sales Engineering deal success. Integrated semi-structured call data with structured CRM records, then applied chi-square tests, z-tests, and logistic regression to 5 behavioral hypotheses. Key findings: multi-product SE engagement lifts win rate 34.6% → 67.1% (+32pp); outside-sales SE coverage gap &gt;$50K represents ~$555K untapped opportunity; balanced SE talk ratio (40–55%) predicts wins only in mid-tier $5K–$27K deals. Delivered a win-probability scoring dashboard for SE leadership to prioritize high-opportunity accounts.
+    MSBA Capstone with one of the nation’s largest PropTech companies — matched 43K Gong conversation recordings to 6,039 Salesforce CRM opportunities to uncover what drives Sales Engineering deal success. Integrated semi-structured call data with structured CRM records, then applied chi-square tests, z-tests, and logistic regression to 5 behavioral hypotheses. Key findings: multi-product SE engagement lifts win rate 34.6% → 67.1% (+32pp); outside-sales SE coverage gap &gt;$50K represents ~$555K untapped opportunity; balanced SE talk ratio (40–55%) predicts wins only in mid-tier $5K–$27K deals. Delivered a win-probability scoring dashboard for SE leadership to prioritize high-opportunity accounts.
   </div>
 </div>
 
@@ -186,29 +185,17 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>Cotality’s Sales Engineering (SE) team closes deals worth <strong>4× more</strong> than deals without SE coverage — yet leadership had no data to prove it. SE contribution was invisible in the CRM: no way to tie SE activity to win rates, deal velocity, or revenue outcomes.</p>
+<p>The Sales Engineering (SE) team at one of the nation’s largest PropTech companies closes deals worth <strong>4× more</strong> than deals without SE coverage — yet leadership had no data to prove it. SE contribution was invisible in the CRM: no way to tie SE activity to win rates, deal velocity, or revenue outcomes.</p>
 <p><strong>Our mission</strong>: quantify SE’s true impact, identify the behavioral drivers of deal success, and deliver a scoring tool SE leadership can use to prioritize where to focus.</p>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
 <tbody>
 <tr class="odd">
-<td><strong>Client</strong></td>
-<td>Cotality (formerly CoreLogic) — real estate data &amp; analytics</td>
-</tr>
-<tr class="even">
-<td><strong>Team</strong></td>
-<td>Aldrich Han · Alex Huang · Vanessa Rodriguez · Heta Shah · Jerry Zhang</td>
-</tr>
-<tr class="odd">
 <td><strong>Program</strong></td>
-<td>UCI Paul Merage MSBA Capstone · May 2026</td>
+<td>UCI Paul Merage MSBA Capstone · Jan 2026 – June 2026</td>
 </tr>
 <tr class="even">
 <td><strong>My Role</strong></td>
-<td>Analysis Lead — Talk Ratio · Engagement Velocity · Dashboard Architecture</td>
+<td>Analysis Lead</td>
 </tr>
 </tbody>
 </table>
@@ -327,7 +314,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="h3-talk-ratio-precision-matters-more-than-direction" class="level3">
 <h3 class="anchored" data-anchor-id="h3-talk-ratio-precision-matters-more-than-direction">H3 — Talk Ratio: Precision Matters More Than Direction</h3>
 <p><strong>z = 1.72, p = 0.043 (mid-tier) · Conditional Reject H₀</strong></p>
-<p>Cotality SEs speak only <strong>29%</strong> of call time on average — far below Gong’s 40–55% optimal range. Across all deals, talk ratio shows no significant effect (p = 0.69). But segment by deal size, and a 20-point gap emerges in mid-tier deals.</p>
+<p>SEs at this company speak only <strong>29%</strong> of call time on average — far below Gong’s 40–55% optimal range. Across all deals, talk ratio shows no significant effect (p = 0.69). But segment by deal size, and a 20-point gap emerges in mid-tier deals.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -476,16 +463,6 @@ ul.task-list li input[type="checkbox"] {
 <blockquote class="blockquote">
 <p><em>From blind spot to decision — in one view.</em></p>
 </blockquote>
-<hr>
-</section>
-<section id="my-contributions" class="level2">
-<h2 class="anchored" data-anchor-id="my-contributions">My Contributions</h2>
-<ul>
-<li><strong>H3 (Talk Ratio)</strong>: Full pipeline from data join to final visualization — ACV-tier segmentation, chi-square and z-tests per tier, insight framing</li>
-<li><strong>H5 (Engagement Velocity)</strong>: Joined Gong timestamp tables to Salesforce outcomes, computed time-delta features per deal, logistic regression controlling for deal size, SE interaction analysis</li>
-<li><strong>Dashboard architecture</strong>: Designed the step-by-step probability accumulator, mapped each hypothesis to a lookup bucket, wrote the scoring logic</li>
-<li>Reviewed and QA’d H1, H2, H4 analyses for statistical correctness prior to final presentation</li>
-</ul>
 
 
 </section>
