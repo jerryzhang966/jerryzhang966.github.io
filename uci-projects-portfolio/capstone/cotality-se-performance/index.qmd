@@ -50,6 +50,15 @@ SE involvement doesn't just affect win rates — it changes the composition of l
 
 **Recommendation**: Before assigning an SE to a complex deal, validate budget availability and decision-making authority. SE time is wasted on deals that will fail for financial reasons a rep could screen out earlier.
 
+:::: {.columns}
+::: {.column width="42%"}
+![Key shifts: Client Unresponsive −9pp, Budget +5.9pp](visuals/h1a.png){width=100%}
+:::
+::: {.column width="58%"}
+![Full loss reason distribution: With SE vs Without SE](visuals/h1b.png){width=100%}
+:::
+::::
+
 ---
 
 ### H2 — SE Multiplies Multi-Product Deals
@@ -67,6 +76,15 @@ Sweet spot: 4-product bundles carry the highest median ACV ($32K). Beyond 20 pro
 
 **Recommendation**: Route SE capacity to multi-product opportunities — that's where SE effort produces measurable ROI.
 
+:::: {.columns}
+::: {.column width="50%"}
+![Win rate: Single vs Multi-product × SE involvement](visuals/h2a.png){width=100%}
+:::
+::: {.column width="50%"}
+![Win rate by product count bucket × SE involvement](visuals/h2b.png){width=100%}
+:::
+::::
+
 ---
 
 ### H3 — Talk Ratio: Precision Matters More Than Direction
@@ -82,6 +100,15 @@ SEs at this company speak only **29%** of call time on average — far below Gon
 | Large (>$27K) | 42.4% | 62.5% | — |
 
 **Recommendation**: For mid-complexity deals, coach SEs toward a 40–55% talk ratio. That's the only tier where the behavior change produces statistically significant, measurable ROI.
+
+:::: {.columns}
+::: {.column width="62%"}
+![Win rate by deal size × talk ratio — significance only in mid-tier](visuals/h3a.png){width=100%}
+:::
+::: {.column width="38%"}
+![Talk ratio distribution: Won vs Lost](visuals/h3b.png){width=100%}
+:::
+::::
 
 ---
 
@@ -99,6 +126,8 @@ Outside sales reps outperform inside sales on small deals — but their win rate
 SE adds **+12.6 percentage points** and **+$3,019 per deal** on outside deals ≥ $50K. Currently 184 of these high-value deals had no SE coverage — representing **~$555K in untapped incremental ACV**.
 
 **Recommendation**: In Salesforce, trigger automatic SE assignment at first touch for Outside Sales + ACV ≥ $50K.
+
+![Win rate by SE involvement × sales motion × deal size](visuals/h4a.png){width=100%}
 
 ---
 
@@ -130,6 +159,15 @@ The same ~+28 pp win-rate lift from SE coverage produces dramatically different 
 | Finance ($50K–$100K) | +30.1 pp (p = 0.014) | $69.5K | $20.9K | **$4.18M** |
 
 SE coverage should not be one-size-fits-all: Finance/mid-market delivers **9× the revenue upside** per SE hour versus small/university deals.
+
+:::: {.columns}
+::: {.column width="50%"}
+![University segment: +27.5pp win-rate lift, $482K upside per 200 deals](visuals/bonus_uni.png){width=100%}
+:::
+::: {.column width="50%"}
+![Finance segment: +30.1pp win-rate lift, $4.18M upside per 200 deals](visuals/bonus_fin.png){width=100%}
+:::
+::::
 
 ---
 
