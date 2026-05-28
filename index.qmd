@@ -7,7 +7,7 @@ listing:
     type: grid
     grid-columns: 1
     max-description-length: 800
-    fields: [image, date, title, description, categories]
+    fields: [image, date, title, description, categories, author]
   - id: others-listing
     contents:
       - uci-projects-portfolio/BANA-200
@@ -86,3 +86,4 @@ Browse my projects below &mdash; **click any card to read the full case study**
 })();
 </script>
 ```
+
