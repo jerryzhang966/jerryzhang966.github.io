@@ -169,6 +169,13 @@ body {
 
 .portfolio-featured .card-body {
   padding-top: 0.65rem !important;
+  display: block !important;
+}
+
+.portfolio-featured .card-body .card-meta,
+.portfolio-featured .card-body .post-meta,
+.portfolio-featured .listing-date {
+  margin-top: 0.75rem !important;
 }
 
 .portfolio-featured .card-title {
@@ -181,6 +188,22 @@ body {
   font-size: 0.9rem;
   line-height: 1.6;
   color: #444;
+}
+
+/* ---- Equal-height visualization pairs in project pages ---- */
+.vis-row {
+  display: flex;
+  gap: 1rem;
+  margin: 1.2rem 0;
+  align-items: flex-start;
+}
+
+.vis-row img {
+  height: 260px;
+  width: 100%;
+  object-fit: contain;
+  background: #faf7f2;
+  border-radius: 6px;
 }
 
 /* ---- "Capstone Project" badge ---- */
@@ -245,4 +268,5 @@ body {
   body { padding-right: 0 !important; }
   .hero-avatar { width: 96px; height: 96px; }
 }
+
 
