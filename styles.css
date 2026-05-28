@@ -142,6 +142,7 @@ body {
 /* ---- Featured card ---- */
 .portfolio-featured .quarto-grid-item {
   position: relative;
+  height: auto !important;
 }
 
 /* Show full cover image — unconstrain Quarto's fixed-height wrapper <p> */
@@ -268,5 +269,6 @@ body {
   body { padding-right: 0 !important; }
   .hero-avatar { width: 96px; height: 96px; }
 }
+
 
 
